@@ -1,24 +1,34 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import tw from 'tailwind-react-native-classnames';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 interface Course {
   id: number;
   name: string;
+  topics: Topic[];
 }
 
-interface CourseListProps {
+interface Topic {
+  id: number;
+  name: string;
+}
+
+interface CoursesProps {
   courses: Course[];
+  navigation: NativeStackNavigationProp<any>;
 }
 
-const CourseList: React.FC<CourseListProps> = ({courses}) => {
+const Courses: React.FC<CoursesProps> = ({courses, navigation}) => {
   const renderItem = ({item}: {item: Course}) => {
     return (
-      <View style={tw`flex-row items-center p-4 border-b border-gray-300`}>
-        {/* Replace 'your-icon' with the icon component */}
-        <View style={tw`w-8 h-8 rounded-full bg-blue-500 mr-4`} />
-        <Text style={tw`text-base`}>{item.name}</Text>
-      </View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Topics', {topics: item.topics})}>
+        <View style={tw`flex-row items-center p-4 border-b border-gray-300`}>
+          <View style={tw`w-8 h-8 rounded-full bg-blue-500 mr-4`} />
+          <Text style={tw`text-base`}>{item.name}</Text>
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -33,4 +43,4 @@ const CourseList: React.FC<CourseListProps> = ({courses}) => {
   );
 };
 
-export default CourseList;
+export default Courses;
