@@ -11,8 +11,7 @@ const coursesData = [
 
 const App: React.FC = () => {
   return (
-    <View style={{flex: 1}}>
-      {/* Pass the courses prop to the CourseList component */}
+    <View className="flex-1">
       <Courses courses={coursesData} />
     </View>
   );
