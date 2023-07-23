@@ -8,7 +8,11 @@ interface Topic {
 }
 
 interface TopicsProps {
-  route: {params: {topics: Topic[]}};
+  route: {
+    params: {
+      topics: Topic[];
+    };
+  };
 }
 
 const Topics: React.FC<TopicsProps> = ({route}) => {

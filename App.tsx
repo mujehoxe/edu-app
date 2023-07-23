@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Courses from './src/components/Courses';
 import Topics from './src/components/Topics';
+import {RootStackParamList} from './src/types';
 
 const coursesData = [
   {
@@ -26,7 +27,7 @@ const coursesData = [
   // Add more courses as needed
 ];
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
   return (
@@ -40,7 +41,9 @@ const App: React.FC = () => {
         <Stack.Screen
           name="Topics"
           component={Topics}
-          options={({route}) => ({title: route.params.topics[0].name})} // Set the screen title based on the first topic's name
+          options={({route}) => ({
+            title: route.params?.topics?.[0]?.name || 'Topics',
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
