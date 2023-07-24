@@ -1,9 +1,9 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Courses from './screens/Courses';
-import Topics from './screens/Topics';
-import {RootStackParamList} from './types';
+import Courses from './src/screens/Courses';
+import Topics from './src/screens/Topics';
+import {RootStackParamList} from './src/types';
 
 const coursesData = [
   {

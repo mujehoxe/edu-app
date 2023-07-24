@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
 import tw from 'twrnc';
+import TopicComponent from '../components/Topic';
 
 interface Topic {
   id: number;
@@ -20,9 +21,12 @@ const Topics: React.FC<TopicsProps> = ({route}) => {
 
   const renderItem = ({item}: {item: Topic}) => {
     return (
-      <View style={tw`flex-row items-center p-4 border-b border-gray-300`}>
-        <Text style={tw`text-base`}>{item.name}</Text>
-      </View>
+      <TopicComponent
+        topic={item}
+        onPress={() => {
+          /* Handle onPress */
+        }}
+      />
     );
   };
 

@@ -6,3 +6,14 @@ export type RootStackParamList = {
 };
 
 export type TopicsScreenRouteProp = RouteProp<RootStackParamList, 'Topics'>;
+
+export interface Course {
+  id: number;
+  name: string;
+  topics: {id: number; name: string}[];
+}
+
+export interface Topic {
+  id: number;
+  name: string;
+}
