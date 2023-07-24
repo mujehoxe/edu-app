@@ -1,8 +1,8 @@
 import {RouteProp} from '@react-navigation/native';
 
 export type RootStackParamList = {
-  Courses: undefined;
-  Topics: {topics: {id: number; name: string}[]};
+  Courses: {courses: Course[]};
+  Topics: {topics: Topic[]};
 };
 
 export type TopicsScreenRouteProp = RouteProp<RootStackParamList, 'Topics'>;

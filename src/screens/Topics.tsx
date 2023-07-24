@@ -2,11 +2,7 @@ import React from 'react';
 import {View, FlatList} from 'react-native';
 import tw from 'twrnc';
 import TopicComponent from '../components/Topic';
-
-interface Topic {
-  id: number;
-  name: string;
-}
+import {Topic} from '../types';
 
 interface TopicsProps {
   route: {

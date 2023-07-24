@@ -8,7 +8,7 @@ interface TopicProps {
   onPress: () => void;
 }
 
-const Topic: React.FC<TopicProps> = ({topic, onPress}) => {
+const TopicComponent: React.FC<TopicProps> = ({topic, onPress}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={tw`flex-row items-center p-4 border-b border-gray-300`}>
@@ -18,4 +18,4 @@ const Topic: React.FC<TopicProps> = ({topic, onPress}) => {
   );
 };
 
-export default Topic;
+export default TopicComponent;

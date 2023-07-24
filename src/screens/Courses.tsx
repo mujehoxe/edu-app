@@ -2,7 +2,7 @@ import React from 'react';
 import {View, FlatList} from 'react-native';
 import tw from 'twrnc';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import CourseItem from '../components/Course';
+import CourseComponent from '../components/Course';
 import {Course} from '../types';
 
 interface CoursesProps {
@@ -16,7 +16,7 @@ const Courses: React.FC<CoursesProps> = ({courses, navigation}) => {
       <FlatList
         data={courses}
         renderItem={({item}) => (
-          <CourseItem course={item} navigation={navigation} />
+          <CourseComponent course={item} navigation={navigation} />
         )}
         keyExtractor={item => item.id.toString()}
       />

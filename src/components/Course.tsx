@@ -9,7 +9,7 @@ interface CourseProps {
   navigation: NativeStackNavigationProp<any>;
 }
 
-const Course: React.FC<CourseProps> = ({course, navigation}) => {
+const CourseComponent: React.FC<CourseProps> = ({course, navigation}) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('Topics', {topics: course.topics})}>
@@ -21,4 +21,4 @@ const Course: React.FC<CourseProps> = ({course, navigation}) => {
   );
 };
 
-export default Course;
+export default CourseComponent;
