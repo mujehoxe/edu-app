@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, FlatList, TouchableOpacity} from 'react-native';
-import tw from 'tailwind-react-native-classnames';
+import tw from 'twrnc';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 interface Course {
@@ -26,7 +26,7 @@ const Courses: React.FC<CoursesProps> = ({courses, navigation}) => {
         onPress={() => navigation.navigate('Topics', {topics: item.topics})}>
         <View style={tw`flex-row items-center p-4 border-b border-gray-300`}>
           <View style={tw`w-8 h-8 rounded-full bg-blue-500 mr-4`} />
-          <Text style={tw`text-base`}>{item.name}</Text>
+          <Text style={tw`text-base text-black`}>{item.name}</Text>
         </View>
       </TouchableOpacity>
     );
