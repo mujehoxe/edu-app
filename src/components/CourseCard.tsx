@@ -12,7 +12,10 @@ interface CourseProps {
 const CourseComponent: React.FC<CourseProps> = ({course, navigation}) => {
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('Topics', {topics: course.topics})}>
+      onPress={() => {
+        console.log(course);
+        navigation.navigate('Course', {course});
+      }}>
       <View style={tw`flex-row items-center p-4 border-b border-gray-300`}>
         <View style={tw`w-8 h-8 rounded-full bg-blue-500 mr-4`} />
         <Text style={tw`text-base text-slate-900`}>{course.name}</Text>
