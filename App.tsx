@@ -2,8 +2,9 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Courses from './src/screens/Courses';
-import Course from './src/screens/CourseDetails';
+import CourseDetails from './src/screens/CourseDetails';
 import {RootStackParamList} from './src/types';
+import TopicDetails from './src/screens/TopicDetails';
 
 const coursesData = [
   {
@@ -39,11 +40,19 @@ const App: React.FC = () => {
           )}
         </Stack.Screen>
         <Stack.Screen
-          name="Course"
-          component={Course}
+          name="CourseDetails"
+          component={CourseDetails}
           options={({route}) => {
             const courseName = route.params?.course?.name || 'Course';
             return {title: courseName};
+          }}
+        />
+        <Stack.Screen
+          name="TopicDetails"
+          component={TopicDetails}
+          options={({route}) => {
+            const topicName = route.params?.topic?.name || 'Topic';
+            return {title: topicName};
           }}
         />
       </Stack.Navigator>

@@ -13,7 +13,7 @@ const CourseComponent: React.FC<CourseProps> = ({course, navigation}) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('Course', {course});
+        navigation.navigate('CourseDetails', {course});
       }}>
       <View style={tw`flex-row items-center p-4 border-b border-gray-300`}>
         <View style={tw`w-8 h-8 rounded-full bg-blue-500 mr-4`} />

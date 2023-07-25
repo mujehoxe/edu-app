@@ -1,11 +1,8 @@
-import {RouteProp} from '@react-navigation/native';
-
 export type RootStackParamList = {
   Courses: {courses: Course[]};
-  Course: {course: Course};
+  CourseDetails: {course: Course};
+  TopicDetails: {topic: Topic};
 };
-
-export type CourseScreenRouteProp = RouteProp<RootStackParamList, 'Course'>;
 
 export interface Course {
   id: number;
