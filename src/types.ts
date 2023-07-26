@@ -7,10 +7,20 @@ export type RootStackParamList = {
 export interface Course {
   id: number;
   name: string;
-  topics: {id: number; name: string}[];
+  topics: Topic[];
 }
 
 export interface Topic {
   id: number;
   name: string;
+  sections: Section[];
+}
+
+type SectionContentTypes = 'video' | 'markdown' | 'pdf' | 'image' | 'svg';
+
+interface Section {
+  id: number;
+  type: 'lecture' | 'exercice' | 'solution';
+  contentType: SectionContentTypes;
+  url: string;
 }
