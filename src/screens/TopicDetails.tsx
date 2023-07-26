@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView, SafeAreaView, StatusBar} from 'react-native';
 import tw from 'twrnc';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -22,7 +22,19 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route}) => {
 
   return (
     <View style={tw`flex-1 bg-white justify-center items-center`}>
-      <Text style={tw`text-2xl font-bold text-slate-900`}>{topic.name}</Text>
+      <SafeAreaView
+        style={[tw`flex-1 w-full`, {paddingTop: StatusBar.currentHeight}]}>
+        <ScrollView style={tw`mx-5`}>
+          {topic.sections.map((item, index) => {
+            console.log(item);
+            return (
+              <View key={index} style={tw`w-fit`}>
+                <Text style={tw`text-3xl`}>{item.title}</Text>
+              </View>
+            );
+          })}
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 };

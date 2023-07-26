@@ -11,7 +11,14 @@ const coursesData = [
     id: 1,
     name: 'Course 1',
     topics: [
-      {id: 11, name: 'Topic 1.1'},
+      {
+        id: 11,
+        name: 'Topic 1.1',
+        sections: [
+          {title: 'section1', type: 'lecture'},
+          {title: 'section2', type: 'solution'},
+        ],
+      },
       {id: 12, name: 'Topic 1.2'},
       // Add more topics for Course 1 as needed
     ],
