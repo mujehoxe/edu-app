@@ -5,7 +5,7 @@ import {Topic} from '../types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types';
 import TopicCard from '../components/TopicCard';
-import Error from '../components/ErrorComponent';
+import ErrorComponent from '../components/ErrorComponent';
 import {RouteProp} from '@react-navigation/native';
 
 type CourseDetailsRouteProp = RouteProp<RootStackParamList, 'CourseDetails'>;
@@ -19,7 +19,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({route, navigation}) => {
   const {course} = route.params;
 
   if (!course) {
-    return <Error message="Course Not Found" />;
+    return <ErrorComponent message="Course Not Found" />;
   }
 
   const renderTopic = ({item}: {item: Topic}) => (
