@@ -6,7 +6,7 @@ interface ErrorScreenProps {
   message: string;
 }
 
-const ErrorScreen: React.FC<ErrorScreenProps> = ({message}) => {
+const ErrorComponent: React.FC<ErrorScreenProps> = ({message}) => {
   return (
     <View style={tw`flex-1 bg-white justify-center items-center`}>
       <Text style={tw`text-red-500 text-xl font-bold`}>{message}</Text>
@@ -14,4 +14,4 @@ const ErrorScreen: React.FC<ErrorScreenProps> = ({message}) => {
   );
 };
 
-export default ErrorScreen;
+export default ErrorComponent;

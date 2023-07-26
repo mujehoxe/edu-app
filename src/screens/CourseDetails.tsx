@@ -5,7 +5,7 @@ import {Topic} from '../types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types';
 import TopicCard from '../components/TopicCard';
-import Error from '../components/Error';
+import Error from '../components/ErrorComponent';
 import {RouteProp} from '@react-navigation/native';
 
 type CourseDetailsRouteProp = RouteProp<RootStackParamList, 'CourseDetails'>;

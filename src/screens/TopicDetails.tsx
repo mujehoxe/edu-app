@@ -4,7 +4,7 @@ import tw from 'twrnc';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types';
-import Error from '../components/Error';
+import Error from '../components/ErrorComponent';
 
 type TopicDetailsRouteProp = RouteProp<RootStackParamList, 'TopicDetails'>;
 
