@@ -29,11 +29,17 @@ export interface Section {
   dateCreated?: Date;
   dateModified?: Date;
   type?: 'lecture' | 'assignment' | 'solution';
-  contentType?: SectionContentTypes;
+  contentType: SectionContentTypes;
   src: string;
 }
 
 export interface AssignmentSection extends Section {
   type: 'assignment';
   deadline: Date;
+}
+
+export interface SectionCardProps {
+  section: Section;
+  isPlaying?: boolean;
+  onPress?: () => void;
 }
