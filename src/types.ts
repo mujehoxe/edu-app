@@ -13,19 +13,24 @@ export interface Course {
 export interface Topic {
   id: number;
   name: string;
-  sections: Section[];
+  sections?: Section[];
 }
 
-type SectionContentTypes = 'video' | 'markdown' | 'pdf' | 'image' | 'svg';
+export type SectionContentTypes =
+  | 'video'
+  | 'markdown'
+  | 'pdf'
+  | 'image'
+  | 'svg';
 
 export interface Section {
   id: number;
   title: string;
-  dateCreated: Date;
-  dateModified: Date;
-  type: 'lecture' | 'assignment' | 'solution';
-  contentType: SectionContentTypes;
-  url: string;
+  dateCreated?: Date;
+  dateModified?: Date;
+  type?: 'lecture' | 'assignment' | 'solution';
+  contentType?: SectionContentTypes;
+  src: string;
 }
 
 export interface AssignmentSection extends Section {
