@@ -18,12 +18,17 @@ export interface Topic {
 
 type SectionContentTypes = 'video' | 'markdown' | 'pdf' | 'image' | 'svg';
 
-interface Section {
+export interface Section {
   id: number;
   title: string;
   dateCreated: Date;
   dateModified: Date;
-  type: 'lecture' | 'exercice' | 'solution';
+  type: 'lecture' | 'assignment' | 'solution';
   contentType: SectionContentTypes;
   url: string;
+}
+
+export interface AssignmentSection extends Section {
+  type: 'assignment';
+  deadline: Date;
 }
