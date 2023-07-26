@@ -42,7 +42,7 @@ const sections: Section[] = [
   {
     id: 5,
     title: 's1',
-    src: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    src: 'https://www.africau.edu/images/default/sample.pdf',
     contentType: 'pdf',
   },
   {

@@ -2,6 +2,7 @@ export type RootStackParamList = {
   Courses: {courses: Course[]};
   CourseDetails: {course: Course};
   TopicDetails: {topic: Topic};
+  PdfView: {section: Section};
 };
 
 export interface Course {
