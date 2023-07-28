@@ -67,5 +67,7 @@ yarn-error.log
 
 .env
 
-/android
+/android/app
+/android/gradle
+/android/gradle*
 /ios
