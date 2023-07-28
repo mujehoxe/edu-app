@@ -3,23 +3,18 @@ import {View, ScrollView, SafeAreaView, StatusBar} from 'react-native';
 import tw from 'twrnc';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList, Section} from '../types';
+import {RootStackParamList, Section, VideoSection} from '../types';
 import ErrorComponent from '../components/ErrorComponent';
 import SectionCard from '../components/SectionCard';
 
-type TopicDetailsRouteProp = RouteProp<RootStackParamList, 'TopicDetails'>;
-
-interface TopicDetailsProps
-  extends NativeStackScreenProps<RootStackParamList, 'TopicDetails'> {
-  route: TopicDetailsRouteProp;
-}
-
-const sections: Section[] = [
+const sections: Section[] | VideoSection[] = [
   {
     id: 1,
     title: 's1',
-    src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    src: 'https://vjs.zencdn.net/v/oceans.mp4',
     contentType: 'video',
+    thumbnailSrc:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPT0JDPj5ZO-PV_w8-AnufjkUlj1Xp0WeEXA&usqp=CAU',
   },
   {
     id: 2,
@@ -32,6 +27,8 @@ const sections: Section[] = [
     title: 's1',
     src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     contentType: 'video',
+    thumbnailSrc:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPT0JDPj5ZO-PV_w8-AnufjkUlj1Xp0WeEXA&usqp=CAU',
   },
   {
     id: 4,
@@ -53,6 +50,13 @@ const sections: Section[] = [
   },
 ];
 
+type TopicDetailsRouteProp = RouteProp<RootStackParamList, 'TopicDetails'>;
+
+interface TopicDetailsProps
+  extends NativeStackScreenProps<RootStackParamList, 'TopicDetails'> {
+  route: TopicDetailsRouteProp;
+}
+
 const TopicDetails: React.FC<TopicDetailsProps> = ({route}) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(-1);
 
@@ -73,23 +77,24 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route}) => {
   }
 
   return (
-    <View style={tw`flex-1 bg-white justify-center items-center`}>
-      <SafeAreaView
-        style={[tw`flex-1 w-full`, {paddingTop: StatusBar.currentHeight}]}>
+    <View style={tw`flex-1 bg-white`}>
+      <SafeAreaView style={tw`flex-1`}>
+        <StatusBar backgroundColor="white" barStyle="dark-content" />
         <ScrollView style={tw`flex-1 mx-5`} scrollEventThrottle={16}>
           {sections?.map((item, index) => (
-            <SectionCard
-              key={item.id}
-              section={item}
-              isPlaying={
-                item.contentType === 'video' && index === currentVideoIndex
-              }
-              onPress={
-                item.contentType === 'video'
-                  ? () => handleVideoTap(index)
-                  : undefined
-              }
-            />
+            <View key={item.id} style={tw`mb-4`}>
+              <SectionCard
+                section={item}
+                isPlaying={
+                  item.contentType === 'video' && index === currentVideoIndex
+                }
+                onPress={
+                  item.contentType === 'video'
+                    ? () => handleVideoTap(index)
+                    : undefined
+                }
+              />
+            </View>
           ))}
         </ScrollView>
       </SafeAreaView>

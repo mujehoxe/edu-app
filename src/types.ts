@@ -39,6 +39,11 @@ export interface AssignmentSection extends Section {
   deadline: Date;
 }
 
+export interface VideoSection extends Section {
+  contentType: 'video';
+  thumbnailSrc?: string;
+}
+
 export interface SectionCardProps {
   section: Section;
   isPlaying?: boolean;
