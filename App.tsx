@@ -5,13 +5,21 @@ import Courses from './src/screens/Courses';
 import CourseDetails from './src/screens/CourseDetails';
 import {RootStackParamList} from './src/types';
 import TopicDetails from './src/screens/TopicDetails';
+import PdfView from './src/screens/PdfView';
 
 const coursesData = [
   {
     id: 1,
     name: 'Course 1',
     topics: [
-      {id: 11, name: 'Topic 1.1'},
+      {
+        id: 11,
+        name: 'Topic 1.1',
+        sections: [
+          {title: 'section1', type: 'lecture'},
+          {title: 'section2', type: 'solution'},
+        ],
+      },
       {id: 12, name: 'Topic 1.2'},
       // Add more topics for Course 1 as needed
     ],
@@ -43,7 +51,7 @@ const App: React.FC = () => {
           name="CourseDetails"
           component={CourseDetails}
           options={({route}) => {
-            const courseName = route.params?.course?.name || 'Course';
+            const courseName = route.params.course.name;
             return {title: courseName};
           }}
         />
@@ -51,8 +59,16 @@ const App: React.FC = () => {
           name="TopicDetails"
           component={TopicDetails}
           options={({route}) => {
-            const topicName = route.params?.topic?.name || 'Topic';
+            const topicName = route.params.topic.name;
             return {title: topicName};
+          }}
+        />
+        <Stack.Screen
+          name="PdfView"
+          component={PdfView}
+          options={({route}) => {
+            const pdfName = route.params.section.title;
+            return {title: pdfName};
           }}
         />
       </Stack.Navigator>

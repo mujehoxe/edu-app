@@ -2,6 +2,7 @@ export type RootStackParamList = {
   Courses: {courses: Course[]};
   CourseDetails: {course: Course};
   TopicDetails: {topic: Topic};
+  PdfView: {section: Section};
 };
 
 export interface Course {
@@ -13,22 +14,38 @@ export interface Course {
 export interface Topic {
   id: number;
   name: string;
-  sections: Section[];
+  sections?: Section[];
 }
 
-type SectionContentTypes = 'video' | 'markdown' | 'pdf' | 'image' | 'svg';
+export type SectionContentTypes =
+  | 'video'
+  | 'markdown'
+  | 'pdf'
+  | 'image'
+  | 'svg';
 
 export interface Section {
   id: number;
   title: string;
-  dateCreated: Date;
-  dateModified: Date;
-  type: 'lecture' | 'assignment' | 'solution';
+  dateCreated?: Date;
+  dateModified?: Date;
+  type?: 'lecture' | 'assignment' | 'solution';
   contentType: SectionContentTypes;
-  url: string;
+  src: string;
 }
 
 export interface AssignmentSection extends Section {
   type: 'assignment';
   deadline: Date;
+}
+
+export interface VideoSection extends Section {
+  contentType: 'video';
+  thumbnailSrc?: string;
+}
+
+export interface SectionCardProps {
+  section: Section;
+  isPlaying?: boolean;
+  onPress?: () => void;
 }

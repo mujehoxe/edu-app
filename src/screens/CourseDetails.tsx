@@ -23,10 +23,12 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({route, navigation}) => {
   }
 
   const renderTopic = ({item}: {item: Topic}) => (
-    <TopicCard
-      topic={item}
-      onPress={() => navigation.navigate('TopicDetails', {topic: item})}
-    />
+    <View style={tw`px-4 py-3`}>
+      <TopicCard
+        topic={item}
+        onPress={() => navigation.navigate('TopicDetails', {topic: item})}
+      />
+    </View>
   );
 
   return (
@@ -35,6 +37,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({route, navigation}) => {
         data={course.topics}
         renderItem={renderTopic}
         keyExtractor={item => item.id.toString()}
+        contentContainerStyle={tw`pb-8`}
       />
     </View>
   );

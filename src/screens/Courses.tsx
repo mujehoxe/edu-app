@@ -16,9 +16,12 @@ const Courses: React.FC<CoursesProps> = ({courses, navigation}) => {
       <FlatList
         data={courses}
         renderItem={({item}) => (
-          <CourseCard course={item} navigation={navigation} />
+          <View style={tw`px-4 py-3`}>
+            <CourseCard course={item} navigation={navigation} />
+          </View>
         )}
         keyExtractor={item => item.id.toString()}
+        contentContainerStyle={tw`pb-8`}
       />
     </View>
   );
