@@ -6,16 +6,7 @@ import {SvgUri} from 'react-native-svg';
 import {MarkdownSectionCard} from './MarkdownSectionCard';
 import {VideoSectionCard} from './VideoSectionCard';
 import {PdfSectionCard} from './PdfSectionCard';
-
-export const ImageSectionCard: React.FC<SectionCardProps> = ({section}) => (
-  <View style={tw`w-full h-72`}>
-    <Image
-      source={{uri: section.src}}
-      style={tw`flex-1`}
-      resizeMode="contain"
-    />
-  </View>
-);
+import {ImageSectionCard} from './ImageSectionCard';
 
 export const SvgSectionCard: React.FC<SectionCardProps> = ({section}) => (
   <View style={tw`w-full h-72`}>
