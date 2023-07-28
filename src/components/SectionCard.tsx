@@ -28,13 +28,6 @@ const SectionCard: React.FC<SectionCardProps> = ({
         isPlaying={isPlaying}
         onPress={onPress}
       />
-      {section.contentType === 'video' && (
-        <View style={tw`p-4 bg-white`}>
-          <Text style={tw`text-base font-semibold text-slate-900`}>
-            {section.title}
-          </Text>
-        </View>
-      )}
     </View>
   );
 };
