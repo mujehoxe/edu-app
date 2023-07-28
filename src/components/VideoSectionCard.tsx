@@ -17,33 +17,19 @@ interface VideoSectionCardProps extends SectionCardProps {
   onPress: () => void;
 }
 
-export const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
+const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
   section,
   isPlaying,
   onPress,
 }) => {
   const videoRef = useRef<Video>(null);
-  const [isFullScreen, setIsFullScreen] = useState(false);
-  const doubleTap = React.createRef();
-
-  const toggleFullScreen = () => {
-    if (videoRef.current) {
-      setIsFullScreen(!isFullScreen);
-      if (!isFullScreen) {
-        videoRef.current.presentFullscreenPlayer();
-      } else {
-        videoRef.current.dismissFullscreenPlayer();
-      }
-    }
-  };
 
   return (
     <GestureHandlerRootView style={tw`rounded-lg overflow-hidden`}>
       <TapGestureHandler
         onHandlerStateChange={({nativeEvent}) => {
           nativeEvent.state === State.ACTIVE && onPress();
-        }}
-        waitFor={doubleTap}>
+        }}>
         <View style={tw`rounded-lg overflow-hidden`}>
           <FastImage
             source={{uri: section.thumbnailSrc}}
@@ -75,3 +61,5 @@ export const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
     </GestureHandlerRootView>
   );
 };
+
+export default VideoSectionCard;

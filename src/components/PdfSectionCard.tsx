@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {PdfViewScreenNavigationProp} from '../screens/PdfView';
 import {ArrowRightIcon, DocumentIcon} from 'react-native-heroicons/outline';
 
-export const PdfSectionCard: React.FC<SectionCardProps> = ({section}) => {
+const PdfSectionCard: React.FC<SectionCardProps> = ({section}) => {
   const navigation = useNavigation<PdfViewScreenNavigationProp>();
 
   return (
@@ -24,3 +24,5 @@ export const PdfSectionCard: React.FC<SectionCardProps> = ({section}) => {
     </TouchableOpacity>
   );
 };
+
+export default PdfSectionCard;

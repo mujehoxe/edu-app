@@ -5,7 +5,7 @@ import tw from 'twrnc';
 import Markdown from '@ronradtke/react-native-markdown-display';
 import {Text, View} from 'react-native';
 
-export const MarkdownSectionCard: React.FC<SectionCardProps> = ({section}) => {
+const MarkdownSectionCard: React.FC<SectionCardProps> = ({section}) => {
   const [markdownContent, setMarkdownContent] = useState(String);
 
   useEffect(() => {
@@ -61,3 +61,5 @@ export const MarkdownSectionCard: React.FC<SectionCardProps> = ({section}) => {
     </View>
   );
 };
+
+export default MarkdownSectionCard;
