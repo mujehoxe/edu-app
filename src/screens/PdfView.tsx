@@ -35,7 +35,7 @@ const PdfView: React.FC<PdfViewProps> = ({route}) => {
     Dimensions.addEventListener('change', updatePdfWidth);
 
     return () => {
-      Orientation.unlockAllOrientations();
+      Orientation.lockToPortrait();
     };
   }, []);
 
