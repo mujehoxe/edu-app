@@ -3,12 +3,9 @@ import {SectionCardProps, SectionContentTypes} from '../types';
 import tw from 'twrnc';
 import {View, Image} from 'react-native';
 import {SvgUri} from 'react-native-svg';
-import {TouchableOpacity} from 'react-native';
-import {Text} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {PdfViewScreenNavigationProp} from '../screens/PdfView';
 import {MarkdownSectionCard} from './MarkdownSectionCard';
 import {VideoSectionCard} from './VideoSectionCard';
+import {PdfSectionCard} from './PdfSectionCard';
 
 export const ImageSectionCard: React.FC<SectionCardProps> = ({section}) => (
   <View style={tw`w-full h-72`}>
@@ -25,19 +22,6 @@ export const SvgSectionCard: React.FC<SectionCardProps> = ({section}) => (
     <SvgUri uri={section.src} width="100%" height="100%" fill="#000000" />
   </View>
 );
-
-export const PdfSectionCard: React.FC<SectionCardProps> = ({section}) => {
-  const navigation = useNavigation<PdfViewScreenNavigationProp>();
-
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate('PdfView', {section});
-      }}>
-      <Text style={tw`text-slate-950`}>{section.src}</Text>
-    </TouchableOpacity>
-  );
-};
 
 export const contentRenderers: {
   [key in SectionContentTypes]: React.FC<SectionCardProps>;
