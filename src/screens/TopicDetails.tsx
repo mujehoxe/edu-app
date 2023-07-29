@@ -3,11 +3,16 @@ import {View, ScrollView, SafeAreaView, StatusBar} from 'react-native';
 import tw from 'twrnc';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList, Section, VideoSection} from '../types';
+import {
+  AssignmentSection,
+  RootStackParamList,
+  Section,
+  VideoSection,
+} from '../types';
 import ErrorComponent from '../components/ErrorComponent';
 import SectionCard from '../components/SectionCard';
 
-const sections: Section[] | VideoSection[] = [
+const sections: Section[] | VideoSection[] | AssignmentSection[] = [
   {
     id: 1,
     title: 'Video lecure',
@@ -41,6 +46,8 @@ const sections: Section[] | VideoSection[] = [
     title: 'Home Work',
     src: 'https://www.africau.edu/images/default/sample.pdf',
     contentType: 'pdf',
+    type: 'assignment',
+    deadline: new Date('2023-07-29'),
   },
   {
     id: 6,

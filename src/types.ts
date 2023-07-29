@@ -41,7 +41,7 @@ export interface AssignmentSection extends Section {
 
 export interface VideoSection extends Section {
   contentType: 'video';
-  thumbnailSrc?: string;
+  thumbnailSrc: string;
 }
 
 export interface SectionCardProps {

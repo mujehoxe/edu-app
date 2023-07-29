@@ -1,5 +1,5 @@
 import React from 'react';
-import {SectionCardProps} from '../types';
+import {AssignmentSection, SectionCardProps} from '../types';
 import {contentRenderers} from './SectionContentTypeRenderers';
 import ErrorComponent from './ErrorComponent';
 import {Text, View} from 'react-native';
@@ -16,6 +16,8 @@ const SectionCard: React.FC<SectionCardProps> = ({
     return <ErrorComponent message="Unsupported Content Type" />;
   }
 
+  const assignmentSection = section as AssignmentSection;
+
   return (
     <View style={tw`bg-white shadow-md rounded-md`}>
       <View style={tw`bg-gray-100 p-4 border-b border-gray-300 rounded-t-md`}>
@@ -28,6 +30,13 @@ const SectionCard: React.FC<SectionCardProps> = ({
         isPlaying={isPlaying}
         onPress={onPress}
       />
+      {assignmentSection.deadline && (
+        <View style={tw`p-4 bg-red-100 border-t border-gray-300 rounded-b-md`}>
+          <Text style={tw`text-right text-red-600 text-base font-semibold`}>
+            Deadline: {assignmentSection.deadline.toDateString()}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
