@@ -45,22 +45,14 @@ const MarkdownSectionCard: React.FC<SectionCardProps> = ({section}) => {
           rules={{
             // eslint-disable-next-line react/no-unstable-nested-components
             math_block: (node, children, parent, styles) => (
-              <View>
-                <MathView
-                  key={node.key}
-                  math={node.content}
-                  style={styles.math_block}
-                />
+              <View key={node.key}>
+                <MathView math={node.content} style={styles.math_block} />
               </View>
             ),
             // eslint-disable-next-line react/no-unstable-nested-components
             math_inline: (node, children, parent, styles) => (
-              <View>
-                <MathView
-                  key={node.key + 1}
-                  math={node.content}
-                  style={styles.math_inline}
-                />
+              <View key={node.key}>
+                <MathView math={node.content} style={styles.math_inline} />
               </View>
             ),
           }}>
