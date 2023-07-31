@@ -15,7 +15,7 @@ import SectionCard from '../components/SectionCard';
 const sections: Section[] | VideoSection[] | AssignmentSection[] = [
   {
     id: 1,
-    title: 'Video lecure',
+    title: 'درس',
     src: 'https://vjs.zencdn.net/v/oceans.mp4',
     contentType: 'video',
     thumbnailSrc:
@@ -23,13 +23,13 @@ const sections: Section[] | VideoSection[] | AssignmentSection[] = [
   },
   {
     id: 2,
-    title: 'Figure 1',
+    title: 'شكل 1',
     src: 'https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/410.svg',
     contentType: 'svg',
   },
   {
     id: 3,
-    title: 'Exercice Solution',
+    title: 'حل تمرين',
     src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     contentType: 'video',
     thumbnailSrc:
@@ -37,13 +37,13 @@ const sections: Section[] | VideoSection[] | AssignmentSection[] = [
   },
   {
     id: 4,
-    title: 'Figure 2',
+    title: 'شكل 2',
     src: 'https://i0.wp.com/blog.filestack.com/wp-content/uploads/2019/03/image-file-extensions.png',
     contentType: 'image',
   },
   {
     id: 5,
-    title: 'Home Work',
+    title: 'واجب',
     src: 'https://www.africau.edu/images/default/sample.pdf',
     contentType: 'pdf',
     type: 'assignment',
@@ -51,7 +51,7 @@ const sections: Section[] | VideoSection[] | AssignmentSection[] = [
   },
   {
     id: 6,
-    title: 'Formulas',
+    title: 'قوانين',
     src: 'https://gist.githubusercontent.com/rt2zz/e0a1d6ab2682d2c47746950b84c0b6ee/raw/83b8b4814c3417111b9b9bef86a552608506603e/markdown-sample.md',
     contentType: 'markdown',
   },

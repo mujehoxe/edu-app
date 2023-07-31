@@ -23,15 +23,8 @@ const UnitCard: React.FC<UnitProps> = ({unit, navigation}) => {
         navigation.navigate('UnitDetails', {unit});
       }}>
       <View style={tw`flex-row items-center flex-1`}>
-        <View
-          style={tw`w-10 h-10 rounded-full ${
-            isRTL ? 'mr-4' : 'ml-4'
-          } bg-blue-500`}
-        />
-        <Text
-          style={tw`text-base text-slate-900 font-semibold flex-1 ${
-            isRTL ? 'text-left' : 'text-right'
-          }`}>
+        <View style={tw`w-10 h-10 rounded-full bg-blue-500`} />
+        <Text style={tw`text-base text-slate-900 ml-4 font-semibold flex-1`}>
           {unit.name}
         </Text>
         {isRTL ? (

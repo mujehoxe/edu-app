@@ -20,10 +20,7 @@ const TopicComponent: React.FC<TopicProps> = ({topic, onPress}) => {
       style={tw`p-4 border-b border-gray-300 bg-white`}
       onPress={onPress}>
       <View style={tw`flex-row items-center`}>
-        <Text
-          style={tw`text-base text-slate-900 font-semibold flex-1 ${
-            isRTL ? 'text-left' : 'text-right'
-          }`}>
+        <Text style={tw`text-base text-slate-900 font-semibold flex-1`}>
           {topic.name}
         </Text>
         {isRTL ? (
