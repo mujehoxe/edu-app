@@ -10,6 +10,7 @@ import i18next from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import enTranslation from './locales/en.json';
 import arTranslation from './locales/ar.json';
+import {useTranslation} from 'react-i18next';
 
 const unitsData = [
   {
@@ -56,10 +57,12 @@ i18next.use(initReactI18next).init({
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
+  const {t} = useTranslation();
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Units">
-        <Stack.Screen name="Units" options={{title: 'Browse Units'}}>
+        <Stack.Screen name="Units" options={{title: t('unitsTitle')}}>
           {({navigation}) => (
             <Units units={unitsData} navigation={navigation} />
           )}
