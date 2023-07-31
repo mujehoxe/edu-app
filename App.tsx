@@ -6,7 +6,7 @@ import UnitDetails from './src/screens/UnitDetails';
 import {RootStackParamList} from './src/types';
 import TopicDetails from './src/screens/TopicDetails';
 import PdfView from './src/screens/PdfView';
-import i18next from 'i18next';
+import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import enTranslation from './locales/en.json';
 import arTranslation from './locales/ar.json';
@@ -43,20 +43,20 @@ const unitsData = [
   // Add more units as needed
 ];
 
-i18next.use(initReactI18next).init({
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+i18n.use(initReactI18next).init({
   compatibilityJSON: 'v3',
   resources: {
     en: {translation: enTranslation},
     ar: {translation: arTranslation},
   },
-  lng: 'ar',
+  lng: 'ar-DZ',
   fallbackLng: 'en',
   interpolation: {
     escapeValue: false,
   },
 });
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
   const {t} = useTranslation();
