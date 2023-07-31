@@ -7,7 +7,6 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from 'react-native-heroicons/outline';
-import {useTranslation} from 'react-i18next';
 
 interface UnitProps {
   unit: Unit;
@@ -15,8 +14,6 @@ interface UnitProps {
 }
 
 const UnitCard: React.FC<UnitProps> = ({unit, navigation}) => {
-  const {t} = useTranslation();
-
   const isRTL = I18nManager.isRTL;
 
   return (

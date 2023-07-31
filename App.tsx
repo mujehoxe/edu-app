@@ -72,7 +72,7 @@ const App: React.FC = () => {
           component={UnitDetails}
           options={({route}) => {
             const unitName = route.params.unit.name;
-            return {title: unitName};
+            return {title: t('unitDetailsTitle') + unitName};
           }}
         />
         <Stack.Screen
