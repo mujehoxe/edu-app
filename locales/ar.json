@@ -1,5 +1,7 @@
 {
   "noUnits": "لا تتوفر أي وحدات حالياً.",
   "unitsTitle": "تصفح الوحدات",
-  "unitDetailsTitle": " مواضيع"
+  "unitDetailsTitle": "مواضيع ",
+  "deadline": "التسليم: ",
+  "dateFormat": "dd/MM/yyyy"
 }

@@ -1,5 +1,7 @@
 {
   "noUnits": "No units available.",
   "unitsTitle": "Browse Units",
-  "unitDetailsTitle": "Topcis in "
+  "unitDetailsTitle": "Topcis in ",
+  "deadline": "Deadline:  ",
+  "dateFormat": "MM/dd/yyyy"
 }
