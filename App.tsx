@@ -1,16 +1,20 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Courses from './src/screens/Courses';
-import CourseDetails from './src/screens/CourseDetails';
+import Units from './src/screens/Units';
+import UnitDetails from './src/screens/UnitDetails';
 import {RootStackParamList} from './src/types';
 import TopicDetails from './src/screens/TopicDetails';
 import PdfView from './src/screens/PdfView';
+import i18next from 'i18next';
+import {initReactI18next} from 'react-i18next';
+import enTranslation from './locales/en.json';
+import arTranslation from './locales/ar.json';
 
-const coursesData = [
+const unitsData = [
   {
     id: 1,
-    name: 'Course 1',
+    name: 'Unit 1',
     topics: [
       {
         id: 11,
@@ -21,38 +25,51 @@ const coursesData = [
         ],
       },
       {id: 12, name: 'Topic 1.2'},
-      // Add more topics for Course 1 as needed
+      // Add more topics for Unit 1 as needed
     ],
   },
   {
     id: 2,
-    name: 'Course 2',
+    name: 'Unit 2',
     topics: [
       {id: 21, name: 'Topic 2.1'},
       {id: 22, name: 'Topic 2.2'},
-      // Add more topics for Course 2 as needed
+      // Add more topics for Unit 2 as needed
     ],
   },
-  // Add more courses as needed
+  // Add more units as needed
 ];
+
+i18next.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources: {
+    en: {translation: enTranslation},
+    ar: {translation: arTranslation},
+  },
+  lng: 'ar',
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false,
+  },
+});
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Courses">
-        <Stack.Screen name="Courses">
+      <Stack.Navigator initialRouteName="Units">
+        <Stack.Screen name="Units" options={{title: 'Browse Units'}}>
           {({navigation}) => (
-            <Courses courses={coursesData} navigation={navigation} />
+            <Units units={unitsData} navigation={navigation} />
           )}
         </Stack.Screen>
         <Stack.Screen
-          name="CourseDetails"
-          component={CourseDetails}
+          name="UnitDetails"
+          component={UnitDetails}
           options={({route}) => {
-            const courseName = route.params.course.name;
-            return {title: courseName};
+            const unitName = route.params.unit.name;
+            return {title: unitName};
           }}
         />
         <Stack.Screen

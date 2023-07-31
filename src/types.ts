@@ -1,11 +1,11 @@
 export type RootStackParamList = {
-  Courses: {courses: Course[]};
-  CourseDetails: {course: Course};
+  Units: {units: Unit[]};
+  UnitDetails: {unit: Unit};
   TopicDetails: {topic: Topic};
   PdfView: {section: Section};
 };
 
-export interface Course {
+export interface Unit {
   id: number;
   name: string;
   topics: Topic[];

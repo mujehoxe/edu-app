@@ -8,18 +8,18 @@ import TopicCard from '../components/TopicCard';
 import ErrorComponent from '../components/ErrorComponent';
 import {RouteProp} from '@react-navigation/native';
 
-type CourseDetailsRouteProp = RouteProp<RootStackParamList, 'CourseDetails'>;
+type UnitDetailsRouteProp = RouteProp<RootStackParamList, 'UnitDetails'>;
 
-interface CourseDetailsProps
-  extends NativeStackScreenProps<RootStackParamList, 'CourseDetails'> {
-  route: CourseDetailsRouteProp;
+interface UnitDetailsProps
+  extends NativeStackScreenProps<RootStackParamList, 'UnitDetails'> {
+  route: UnitDetailsRouteProp;
 }
 
-const CourseDetails: React.FC<CourseDetailsProps> = ({route, navigation}) => {
-  const {course} = route.params;
+const UnitDetails: React.FC<UnitDetailsProps> = ({route, navigation}) => {
+  const {unit} = route.params;
 
-  if (!course) {
-    return <ErrorComponent message="Course Not Found" />;
+  if (!unit) {
+    return <ErrorComponent message="Unit Not Found" />;
   }
 
   const renderTopic = ({item}: {item: Topic}) => (
@@ -34,7 +34,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({route, navigation}) => {
   return (
     <View style={tw`flex-1 bg-white`}>
       <FlatList
-        data={course.topics}
+        data={unit.topics}
         renderItem={renderTopic}
         keyExtractor={item => item.id.toString()}
         contentContainerStyle={tw`pb-8`}
@@ -43,4 +43,4 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({route, navigation}) => {
   );
 };
 
-export default CourseDetails;
+export default UnitDetails;
