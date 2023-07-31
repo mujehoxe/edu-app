@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Units from './src/screens/Units';
@@ -11,30 +11,32 @@ import {initReactI18next} from 'react-i18next';
 import enTranslation from './locales/en.json';
 import arTranslation from './locales/ar.json';
 import {useTranslation} from 'react-i18next';
+import {I18nManager} from 'react-native';
+import RNRestart from 'react-native-restart';
 
 const unitsData = [
   {
     id: 1,
-    name: 'Unit 1',
+    name: 'الوحدة 1',
     topics: [
       {
         id: 11,
-        name: 'Topic 1.1',
+        name: 'الموضوع 1.1',
         sections: [
-          {title: 'section1', type: 'lecture'},
-          {title: 'section2', type: 'solution'},
+          {title: 'المقطع 1', type: 'lecture'},
+          {title: '2 المقطع', type: 'solution'},
         ],
       },
-      {id: 12, name: 'Topic 1.2'},
+      {id: 12, name: 'الموضوع 1.2'},
       // Add more topics for Unit 1 as needed
     ],
   },
   {
     id: 2,
-    name: 'Unit 2',
+    name: 'الوحدة 2',
     topics: [
-      {id: 21, name: 'Topic 2.1'},
-      {id: 22, name: 'Topic 2.2'},
+      {id: 21, name: 'الموضوع 2.1'},
+      {id: 22, name: 'الموضوع 2.2'},
       // Add more topics for Unit 2 as needed
     ],
   },
@@ -58,6 +60,12 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
   const {t} = useTranslation();
+
+  useEffect(() => {
+    I18nManager.allowRTL(true);
+    I18nManager.forceRTL(true);
+    !I18nManager.isRTL && RNRestart.restart();
+  }, []);
 
   return (
     <NavigationContainer>
