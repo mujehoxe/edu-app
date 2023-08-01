@@ -1,10 +1,18 @@
 import React from 'react';
-import {AssignmentSection, SectionCardProps} from '../types';
-import {contentRenderers} from './SectionContentTypeRenderers';
+import {
+  AssignmentSection,
+  SectionCardProps,
+  SectionContentTypes,
+} from '../types';
 import ErrorComponent from './ErrorComponent';
 import {Text, View} from 'react-native';
 import tw from 'twrnc';
 import {useTranslation} from 'react-i18next';
+import ImageSectionCard from './ImageSectionCard';
+import MarkdownSectionCard from './MarkdownSectionCard';
+import PdfSectionCard from './PdfSectionCard';
+import VideoSectionCard from './VideoSectionCard';
+import SvgSectionCard from './SvgSectionCard';
 
 const SectionCard: React.FC<SectionCardProps> = ({
   section,
@@ -51,3 +59,13 @@ const SectionCard: React.FC<SectionCardProps> = ({
 };
 
 export default SectionCard;
+
+const contentRenderers: {
+  [key in SectionContentTypes]: React.FC<SectionCardProps>;
+} = {
+  video: VideoSectionCard,
+  markdown: MarkdownSectionCard,
+  image: ImageSectionCard,
+  svg: SvgSectionCard,
+  pdf: PdfSectionCard,
+};
