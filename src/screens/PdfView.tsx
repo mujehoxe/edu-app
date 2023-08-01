@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Dimensions, View, StatusBar} from 'react-native';
+import {Dimensions, StatusBar} from 'react-native';
 import Pdf from 'react-native-pdf';
 import tw from 'twrnc';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
