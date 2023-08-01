@@ -52,7 +52,7 @@ const sections: Section[] | VideoSection[] | AssignmentSection[] = [
   {
     id: 6,
     title: 'قوانين',
-    src: 'https://gist.githubusercontent.com/rt2zz/e0a1d6ab2682d2c47746950b84c0b6ee/raw/83b8b4814c3417111b9b9bef86a552608506603e/markdown-sample.md',
+    src: 'https://gist.githubusercontent.com/mujehoxe/7191807dbed8279af5c19f6b9f6f8c7e/raw/99eecef422f00b3f4598f1b6efafd9280f81798b/example-arabic.md',
     contentType: 'markdown',
   },
 ];
