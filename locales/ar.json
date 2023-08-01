@@ -3,5 +3,6 @@
   "unitsTitle": "تصفح الوحدات",
   "unitDetailsTitle": "مواضيع ",
   "deadline": "التسليم: ",
-  "dateFormat": "dd/MM/yyyy"
+  "dateFormat": "dd/MM/yyyy",
+  "jumpToPDF": "انتقل إلى PDF"
 }
