@@ -94,10 +94,7 @@ const App: React.FC = () => {
         <Stack.Screen
           name="PdfView"
           component={PdfView}
-          options={({route}) => {
-            const pdfName = route.params.section.title;
-            return {title: pdfName};
-          }}
+          options={{title: '', headerTransparent: true}}
         />
       </Stack.Navigator>
     </NavigationContainer>

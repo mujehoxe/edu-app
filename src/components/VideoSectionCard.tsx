@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {SectionCardProps} from '../types';
 import tw from 'twrnc';
 import Video from 'react-native-video';

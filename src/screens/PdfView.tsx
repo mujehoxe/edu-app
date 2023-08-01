@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Dimensions, View} from 'react-native';
+import {Dimensions, View, StatusBar} from 'react-native';
 import Pdf from 'react-native-pdf';
 import tw from 'twrnc';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -10,6 +10,7 @@ import Orientation, {
   LANDSCAPE,
   OrientationLocker,
 } from 'react-native-orientation-locker';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export type PdfViewScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -40,7 +41,8 @@ const PdfView: React.FC<PdfViewProps> = ({route}) => {
   }, []);
 
   return (
-    <View style={tw`bg-slate-200 flex-1 w-full h-full`}>
+    <SafeAreaView style={tw`bg-slate-200 flex-1 w-full h-full bg-transparent`}>
+      <StatusBar hidden={true} />
       <OrientationLocker orientation={LANDSCAPE} />
       <Pdf
         source={{uri: src}}
@@ -48,7 +50,7 @@ const PdfView: React.FC<PdfViewProps> = ({route}) => {
         fitPolicy={0}
         style={[tw`flex-1`, {width: pdfWidth, height: '100%'}]}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
