@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, ScrollView, SafeAreaView, StatusBar} from 'react-native';
+import {View, ScrollView, SafeAreaView} from 'react-native';
 import tw from 'twrnc';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -65,7 +65,7 @@ interface TopicDetailsProps
 }
 
 const TopicDetails: React.FC<TopicDetailsProps> = ({route}) => {
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(-1);
+  const [currentPlayingVideoIndex, setCurrentVideoIndex] = useState(-1);
 
   const handleVideoTap = (index: number) => {
     setCurrentVideoIndex(prevIndex => {
@@ -86,14 +86,14 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route}) => {
   return (
     <View style={tw`flex-1 bg-white`}>
       <SafeAreaView style={tw`flex-1`}>
-        <StatusBar backgroundColor="white" barStyle="dark-content" />
         <ScrollView style={tw`flex-1 mx-5`} scrollEventThrottle={16}>
           {sections?.map((item, index) => (
             <View key={item.id} style={tw`mb-4`}>
               <SectionCard
                 section={item}
                 isPlaying={
-                  item.contentType === 'video' && index === currentVideoIndex
+                  item.contentType === 'video' &&
+                  index === currentPlayingVideoIndex
                 }
                 onPress={
                   item.contentType === 'video'

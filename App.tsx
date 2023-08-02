@@ -11,8 +11,9 @@ import {initReactI18next} from 'react-i18next';
 import enTranslation from './locales/en.json';
 import arTranslation from './locales/ar.json';
 import {useTranslation} from 'react-i18next';
-import {I18nManager} from 'react-native';
+import {I18nManager, StatusBar} from 'react-native';
 import RNRestart from 'react-native-restart';
+import SystemNavigationBar from 'react-native-system-navigation-bar';
 
 const unitsData = [
   {
@@ -65,10 +66,13 @@ const App: React.FC = () => {
     I18nManager.allowRTL(true);
     I18nManager.forceRTL(true);
     !I18nManager.isRTL && RNRestart.restart();
+    SystemNavigationBar.setNavigationColor('#FFF', 'light');
+    SystemNavigationBar.setNavigationBarDividerColor('#CACACA');
   }, []);
 
   return (
     <NavigationContainer>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       <Stack.Navigator initialRouteName="Units">
         <Stack.Screen name="Units" options={{title: t('unitsTitle')}}>
           {({navigation}) => (
