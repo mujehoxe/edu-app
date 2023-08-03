@@ -55,8 +55,9 @@ const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({route}) => {
         paused={paused}
         onLoad={() => modalVideoRef.current?.seek(currentPlaybackTime)}
         onProgress={data => onProgress(data)}
-        onEnd={() => 0}
+        onEnd={() => modalVideoRef.current?.seek(0)}
         resizeMode="cover"
+        controls
       />
     </View>
   );
