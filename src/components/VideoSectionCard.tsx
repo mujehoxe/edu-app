@@ -51,9 +51,6 @@ const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
           source={{uri: convertToProxyURL({url: section.src})}}
           style={tw`w-full h-72 absolute inset-0`}
           paused={!isPlaying}
-          onLoad={() => {
-            videoRef.current?.seek(currentPlaybackTime);
-          }}
           resizeMode="cover"
           onProgress={onProgress}
           onEnd={() => setCurrentPlaybackTime(0)}

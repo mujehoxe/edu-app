@@ -7,7 +7,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
-import Orientation, {OrientationType} from 'react-native-orientation-locker';
+import Orientation from 'react-native-orientation-locker';
 import convertToProxyURL from 'react-native-video-cache-control';
 
 export type FullscreenVideoModalNavigationProp = StackNavigationProp<
