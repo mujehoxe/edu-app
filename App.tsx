@@ -14,6 +14,8 @@ import {useTranslation} from 'react-i18next';
 import {I18nManager, StatusBar} from 'react-native';
 import RNRestart from 'react-native-restart';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
+import FullscreenVideoModal from './src/screens/FullscreenVideoModal';
+import Orientation from 'react-native-orientation-locker';
 
 const unitsData = [
   {
@@ -44,7 +46,75 @@ const unitsData = [
   // Add more units as needed
 ];
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
+
+const MainStack = createNativeStackNavigator();
+
+const MainStackScreen: React.FC = () => {
+  const {t} = useTranslation();
+
+  return (
+    <MainStack.Navigator>
+      <RootStack.Screen name="Units" options={{title: t('unitsTitle')}}>
+        {({navigation}) => <Units units={unitsData} navigation={navigation} />}
+      </RootStack.Screen>
+      <RootStack.Screen
+        name="UnitDetails"
+        component={UnitDetails}
+        options={({route}) => {
+          const unitName = route.params.unit.name;
+          return {title: t('unitDetailsTitle') + unitName};
+        }}
+      />
+      <RootStack.Screen
+        name="TopicDetails"
+        component={TopicDetails}
+        options={({route}) => {
+          const topicName = route.params.topic.name;
+          return {title: topicName};
+        }}
+      />
+      <RootStack.Screen
+        name="PdfView"
+        component={PdfView}
+        options={{title: '', headerTransparent: true}}
+      />
+    </MainStack.Navigator>
+  );
+};
+
+const App: React.FC = () => {
+  useEffect(() => {
+    I18nManager.allowRTL(true);
+    I18nManager.forceRTL(true);
+    !I18nManager.isRTL && RNRestart.restart();
+    SystemNavigationBar.setNavigationColor('#FFF', 'light');
+    SystemNavigationBar.setNavigationBarDividerColor('#CACACA');
+    Orientation.lockToPortrait();
+  }, []);
+
+  return (
+    <NavigationContainer>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
+      <RootStack.Navigator
+        initialRouteName="Units"
+        screenOptions={{presentation: 'modal'}}>
+        <RootStack.Screen
+          name="Main"
+          component={MainStackScreen}
+          options={{headerShown: false}}
+        />
+        <RootStack.Screen
+          name="FullscreenVideoModal"
+          component={FullscreenVideoModal}
+          options={{title: '', headerTransparent: true}}
+        />
+      </RootStack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
 
 i18n.use(initReactI18next).init({
   compatibilityJSON: 'v3',
@@ -58,51 +128,3 @@ i18n.use(initReactI18next).init({
     escapeValue: false,
   },
 });
-
-const App: React.FC = () => {
-  const {t} = useTranslation();
-
-  useEffect(() => {
-    I18nManager.allowRTL(true);
-    I18nManager.forceRTL(true);
-    !I18nManager.isRTL && RNRestart.restart();
-    SystemNavigationBar.setNavigationColor('#FFF', 'light');
-    SystemNavigationBar.setNavigationBarDividerColor('#CACACA');
-  }, []);
-
-  return (
-    <NavigationContainer>
-      <StatusBar backgroundColor="white" barStyle="dark-content" />
-      <Stack.Navigator initialRouteName="Units">
-        <Stack.Screen name="Units" options={{title: t('unitsTitle')}}>
-          {({navigation}) => (
-            <Units units={unitsData} navigation={navigation} />
-          )}
-        </Stack.Screen>
-        <Stack.Screen
-          name="UnitDetails"
-          component={UnitDetails}
-          options={({route}) => {
-            const unitName = route.params.unit.name;
-            return {title: t('unitDetailsTitle') + unitName};
-          }}
-        />
-        <Stack.Screen
-          name="TopicDetails"
-          component={TopicDetails}
-          options={({route}) => {
-            const topicName = route.params.topic.name;
-            return {title: topicName};
-          }}
-        />
-        <Stack.Screen
-          name="PdfView"
-          component={PdfView}
-          options={{title: '', headerTransparent: true}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
-
-export default App;

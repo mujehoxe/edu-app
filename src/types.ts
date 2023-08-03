@@ -1,8 +1,16 @@
+import {OnProgressData} from 'react-native-video';
+
 export type RootStackParamList = {
   Units: {units: Unit[]};
   UnitDetails: {unit: Unit};
   TopicDetails: {topic: Topic};
   PdfView: {section: Section};
+  FullscreenVideoModal: {
+    src: string;
+    paused?: boolean;
+    currentPlaybackTime: number;
+    onProgress: (data: OnProgressData) => void;
+  };
 };
 
 export interface Unit {

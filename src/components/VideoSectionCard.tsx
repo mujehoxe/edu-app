@@ -1,10 +1,12 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {SectionCardProps} from '../types';
 import tw from 'twrnc';
-import Video from 'react-native-video';
+import Video, {OnProgressData} from 'react-native-video';
 import {TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {VideoSection} from '../types';
+import {useNavigation} from '@react-navigation/native';
+import {FullscreenVideoModalNavigationProp} from '../screens/FullscreenVideoModal';
 
 interface VideoSectionCardProps extends SectionCardProps {
   section: VideoSection;
@@ -18,9 +20,24 @@ const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
   onPress,
 }) => {
   const videoRef = useRef<Video>(null);
+  const navigation = useNavigation<FullscreenVideoModalNavigationProp>();
+  const [currentPlaybackTime, setCurrentPlaybackTime] = useState<number>(0);
+
+  const onProgress = (data: OnProgressData) =>
+    setCurrentPlaybackTime(data.currentTime);
 
   return (
-    <TouchableOpacity activeOpacity={1} onPress={onPress}>
+    <TouchableOpacity
+      activeOpacity={1}
+      onPress={onPress}
+      onLongPress={() => {
+        navigation.navigate('FullscreenVideoModal', {
+          src: section.src,
+          paused: videoRef.current?.props.paused,
+          currentPlaybackTime,
+          onProgress,
+        });
+      }}>
       <View style={tw`rounded-lg overflow-hidden`}>
         <FastImage
           source={{uri: section.thumbnailSrc}}
@@ -33,9 +50,13 @@ const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
           source={{uri: section.src}}
           style={tw`w-full h-72 absolute inset-0`}
           paused={!isPlaying}
+          onLoad={() => {
+            videoRef.current?.seek(currentPlaybackTime);
+          }}
           resizeMode="cover"
-          muted
-          repeat
+          onProgress={onProgress}
+          onEnd={() => setCurrentPlaybackTime(0)}
+          muted={false}
         />
 
         {isPlaying ? (
