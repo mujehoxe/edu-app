@@ -7,7 +7,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
-import Orientation from 'react-native-orientation-locker';
+import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import convertToProxyURL from 'react-native-video-cache-control';
 
 export type FullscreenVideoModalNavigationProp = StackNavigationProp<
@@ -33,9 +33,10 @@ const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({route}) => {
     SystemNavigationBar.immersive();
     Orientation.lockToLandscape();
     Orientation.addDeviceOrientationListener(orientaion => {
-      orientaion === 'LANDSCAPE-LEFT'
-        ? Orientation.lockToLandscapeLeft()
-        : Orientation.lockToLandscapeRight();
+      orientaion !== 'UNKNOWN' &&
+        (orientaion === 'LANDSCAPE-LEFT'
+          ? Orientation.lockToLandscapeLeft()
+          : Orientation.lockToLandscapeRight());
     });
 
     return () => {
