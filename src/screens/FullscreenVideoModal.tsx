@@ -8,6 +8,7 @@ import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Orientation from 'react-native-orientation-locker';
+import convertToProxyURL from 'react-native-video-cache-control';
 
 export type FullscreenVideoModalNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -48,7 +49,7 @@ const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({route}) => {
     <View style={tw`bg-black w-full h-full`}>
       <Video
         ref={modalVideoRef}
-        source={{uri: src}}
+        source={{uri: convertToProxyURL({url: src})}}
         style={tw`bg-black h-full absolute inset-0`}
         paused={paused}
         onLoad={() => modalVideoRef.current?.seek(currentPlaybackTime)}

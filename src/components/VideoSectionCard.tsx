@@ -7,6 +7,7 @@ import FastImage from 'react-native-fast-image';
 import {VideoSection} from '../types';
 import {useNavigation} from '@react-navigation/native';
 import {FullscreenVideoModalNavigationProp} from '../screens/FullscreenVideoModal';
+import convertToProxyURL from 'react-native-video-cache-control';
 
 interface VideoSectionCardProps extends SectionCardProps {
   section: VideoSection;
@@ -47,7 +48,7 @@ const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
 
         <Video
           ref={videoRef}
-          source={{uri: section.src}}
+          source={{uri: convertToProxyURL({url: section.src})}}
           style={tw`w-full h-72 absolute inset-0`}
           paused={!isPlaying}
           onLoad={() => {
