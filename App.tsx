@@ -16,6 +16,7 @@ import RNRestart from 'react-native-restart';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import FullscreenVideoModal from './src/screens/FullscreenVideoModal';
 import Orientation from 'react-native-orientation-locker';
+import {clearCache} from 'react-native-video-cache-control';
 
 const unitsData = [
   {
@@ -85,6 +86,7 @@ const MainStackScreen: React.FC = () => {
 
 const App: React.FC = () => {
   useEffect(() => {
+    clearCache();
     I18nManager.allowRTL(true);
     I18nManager.forceRTL(true);
     !I18nManager.isRTL && RNRestart.restart();
