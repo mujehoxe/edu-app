@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Units from './src/screens/Units';
 import UnitDetails from './src/screens/UnitDetails';
-import {RootStackParamList} from './src/types';
+import {RootStackParamList, Unit} from './src/types';
 import TopicDetails from './src/screens/TopicDetails';
 import PdfView from './src/screens/PdfView';
 import i18n from 'i18next';
@@ -18,9 +18,11 @@ import FullscreenVideoModal from './src/screens/FullscreenVideoModal';
 import Orientation from 'react-native-orientation-locker';
 import {clearCache} from 'react-native-video-cache-control';
 
-const unitsData = [
+const unitsData: Unit[] = [
   {
     id: 1,
+    number: 1,
+    name: 'المتابعة الزمنية لتحول كيميائي في وسط مائي',
     icon: require('./src/assets/unitIcon.png'),
     topics: [
       {
@@ -37,7 +39,8 @@ const unitsData = [
   },
   {
     id: 2,
-    name: 'الوحدة 2',
+    number: 2,
+    name: 'المتابعة الزمنية لتحول كيميائي في وسط مائي',
     topics: [
       {id: 21, name: 'الموضوع 2.1'},
       {id: 22, name: 'الموضوع 2.2'},
@@ -64,7 +67,7 @@ const MainStackScreen: React.FC = () => {
         component={UnitDetails}
         options={({route}) => {
           const unitName = route.params.unit.name;
-          return {title: t('unitDetailsTitle') + unitName};
+          return {title: unitName};
         }}
       />
       <RootStack.Screen

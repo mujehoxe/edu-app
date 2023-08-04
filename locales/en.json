@@ -1,8 +1,8 @@
 {
   "noUnits": "No units available.",
   "unitsTitle": "Browse Units",
-  "unitDetailsTitle": "Topcis in ",
   "deadline": "Deadline:  ",
   "dateFormat": "MM/dd/yyyy",
-  "jumpToPDF": "Jump To PDF"
+  "jumpToPDF": "Jump To PDF",
+  "unit": "unit"
 }

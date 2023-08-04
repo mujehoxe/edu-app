@@ -8,6 +8,7 @@ import {
   ChevronRightIcon,
   XCircleIcon,
 } from 'react-native-heroicons/outline';
+import {useTranslation} from 'react-i18next';
 
 interface UnitProps {
   unit: Unit;
@@ -16,6 +17,7 @@ interface UnitProps {
 
 const UnitCard: React.FC<UnitProps> = ({unit, navigation}) => {
   const isRTL = I18nManager.isRTL;
+  const {t} = useTranslation();
 
   return (
     <TouchableOpacity
@@ -30,7 +32,7 @@ const UnitCard: React.FC<UnitProps> = ({unit, navigation}) => {
           <XCircleIcon width={56} height={56} style={tw`text-black`} />
         )}
         <Text style={tw`text-base text-slate-900 ml-4 font-semibold flex-1`}>
-          {unit.name}
+          {t('unit') + unit.number + ': ' + unit.name}
         </Text>
         {isRTL ? (
           <ChevronLeftIcon style={tw`w-6 h-6 text-slate-600`} />
