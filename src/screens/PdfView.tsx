@@ -11,6 +11,9 @@ import Orientation, {
   OrientationLocker,
 } from 'react-native-orientation-locker';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import RNPrint from 'react-native-print';
+import {useNavigation} from '@react-navigation/native';
+import {PrinterIcon} from 'react-native-heroicons/outline';
 
 export type PdfViewScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -27,6 +30,7 @@ interface PdfViewProps
 const PdfView: React.FC<PdfViewProps> = ({route}) => {
   const {src} = route.params.section;
   const [pdfWidth, setPdfWidth] = useState(Dimensions.get('window').width);
+  const navigation = useNavigation<PdfViewScreenNavigationProp>();
 
   useEffect(() => {
     const updatePdfWidth = () => {
@@ -35,10 +39,21 @@ const PdfView: React.FC<PdfViewProps> = ({route}) => {
 
     Dimensions.addEventListener('change', updatePdfWidth);
 
+    navigation.setOptions({
+      headerRight: props => (
+        <PrinterIcon style={tw`text-black`} onPress={printPDF} />
+      ),
+      headerTransparent: true,
+    });
+
+    const printPDF = async () => {
+      await RNPrint.print({filePath: src});
+    };
+
     return () => {
       Orientation.lockToPortrait();
     };
-  }, []);
+  }, [navigation, src]);
 
   return (
     <SafeAreaView style={tw`bg-slate-200 flex-1 w-full h-full bg-transparent`}>

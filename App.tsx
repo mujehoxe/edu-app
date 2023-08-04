@@ -81,7 +81,7 @@ const MainStackScreen: React.FC = () => {
       <RootStack.Screen
         name="PdfView"
         component={PdfView}
-        options={{title: '', headerTransparent: true}}
+        options={{title: ''}}
       />
     </MainStack.Navigator>
   );
