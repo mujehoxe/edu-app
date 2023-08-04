@@ -16,6 +16,7 @@ export type RootStackParamList = {
 export interface Unit {
   id: number;
   name: string;
+  icon?: string;
   topics: Topic[];
 }
 

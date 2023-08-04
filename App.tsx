@@ -21,7 +21,7 @@ import {clearCache} from 'react-native-video-cache-control';
 const unitsData = [
   {
     id: 1,
-    name: 'الوحدة 1',
+    icon: require('./src/assets/unitIcon.png'),
     topics: [
       {
         id: 11,
