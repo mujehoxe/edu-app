@@ -56,10 +56,7 @@ const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
           paused={!isPlaying}
           resizeMode="cover"
           onProgress={onProgress}
-          onEnd={() => {
-            setCurrentPlaybackTime(0);
-            videoRef.current?.seek(currentPlaybackTime);
-          }}
+          onEnd={() => setCurrentPlaybackTime(0)}
           muted={false}
         />
 
