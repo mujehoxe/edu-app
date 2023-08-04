@@ -8,6 +8,7 @@ import {VideoSection} from '../types';
 import {useNavigation} from '@react-navigation/native';
 import {FullscreenVideoModalNavigationProp} from '../screens/FullscreenVideoModal';
 import convertToProxyURL from 'react-native-video-cache-control';
+import {ArrowsPointingOutIcon} from 'react-native-heroicons/outline';
 
 interface VideoSectionCardProps extends SectionCardProps {
   section: VideoSection;
@@ -27,18 +28,19 @@ const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
   const onProgress = (data: OnProgressData) =>
     setCurrentPlaybackTime(data.currentTime);
 
+  const switchToFullscreen = () => {
+    navigation.navigate('FullscreenVideoModal', {
+      src: section.src,
+      paused: videoRef.current?.props.paused,
+      currentPlaybackTime,
+      onProgress,
+    });
+  };
   return (
     <TouchableOpacity
       activeOpacity={1}
       onPress={onPress}
-      onLongPress={() => {
-        navigation.navigate('FullscreenVideoModal', {
-          src: section.src,
-          paused: videoRef.current?.props.paused,
-          currentPlaybackTime,
-          onProgress,
-        });
-      }}>
+      onLongPress={switchToFullscreen}>
       <View style={tw`rounded-lg overflow-hidden`}>
         <FastImage
           source={{uri: section.thumbnailSrc}}
@@ -56,6 +58,14 @@ const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
           onEnd={() => setCurrentPlaybackTime(0)}
           muted={false}
         />
+
+        <View
+          style={tw`absolute bottom-2 left-2 items-center opacity-70 bg-gray-700`}>
+          <ArrowsPointingOutIcon
+            style={tw`w-8 h-8 text-white`}
+            onPress={switchToFullscreen}
+          />
+        </View>
 
         {isPlaying ? (
           <View style={tw`absolute top-2 right-2`}>
