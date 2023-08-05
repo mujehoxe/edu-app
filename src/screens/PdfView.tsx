@@ -26,7 +26,7 @@ interface PdfViewProps
 }
 
 const PdfView: React.FC<PdfViewProps> = ({route}) => {
-  const {src} = route.params.section;
+  const {src} = route.params;
   const [pdfWidth, setPdfWidth] = useState(Dimensions.get('window').width);
   const navigation = useNavigation<PdfViewScreenNavigationProp>();
 

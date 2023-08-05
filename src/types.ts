@@ -4,7 +4,7 @@ export type RootStackParamList = {
   Units: {units: Unit[]};
   UnitDetails: {unit: Unit};
   TopicDetails: {topic: Topic};
-  PdfView: {section: Section};
+  PdfView: {src: string};
   FullscreenVideoModal: {
     src: string;
     paused?: boolean;
