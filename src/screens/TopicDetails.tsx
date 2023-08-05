@@ -86,7 +86,7 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route}) => {
   return (
     <View style={tw`flex-1 bg-white`}>
       <SafeAreaView style={tw`flex-1`}>
-        <ScrollView style={tw`flex-1 mx-5`} scrollEventThrottle={16}>
+        <ScrollView style={tw`flex-1`} scrollEventThrottle={16}>
           {sections?.map((item, index) => (
             <View key={item.id} style={tw`mb-4`}>
               <SectionCard
