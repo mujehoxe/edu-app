@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, ScrollView, SafeAreaView} from 'react-native';
+import {View, SafeAreaView, FlatList, ListRenderItem} from 'react-native';
 import tw from 'twrnc';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -85,27 +85,28 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route}) => {
     return <ErrorComponent message="Topic Not Found" />;
   }
 
+  const renderSection: ListRenderItem<Section> = ({item, index}) => (
+    <SectionCard
+      section={item}
+      isPlaying={
+        item.contentType === 'video' && index === currentPlayingVideoIndex
+      }
+      onPress={
+        item.contentType === 'video' ? () => handleVideoTap(index) : undefined
+      }
+    />
+  );
+
   return (
     <View style={tw`flex-1 bg-white`}>
       <SafeAreaView style={tw`flex-1`}>
-        <ScrollView style={tw`flex-1`} scrollEventThrottle={16}>
-          {sections?.map((item, index) => (
-            <View key={item.id} style={tw`mb-4`}>
-              <SectionCard
-                section={item}
-                isPlaying={
-                  item.contentType === 'video' &&
-                  index === currentPlayingVideoIndex
-                }
-                onPress={
-                  item.contentType === 'video'
-                    ? () => handleVideoTap(index)
-                    : undefined
-                }
-              />
-            </View>
-          ))}
-        </ScrollView>
+        <FlatList
+          data={sections}
+          renderItem={renderSection}
+          keyExtractor={item => item.id.toString()}
+          maxToRenderPerBatch={3}
+          initialNumToRender={3}
+        />
       </SafeAreaView>
     </View>
   );
