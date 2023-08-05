@@ -4,7 +4,7 @@ import tw from 'twrnc';
 import Video, {OnProgressData} from 'react-native-video';
 import {TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {VideoSection} from '../types';
+import {Section} from '../types';
 import {useNavigation} from '@react-navigation/native';
 import {FullscreenVideoModalNavigationProp} from '../screens/FullscreenVideoModal';
 import convertToProxyURL from 'react-native-video-cache-control';
@@ -89,3 +89,8 @@ const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
 };
 
 export default VideoSectionCard;
+
+export interface VideoSection extends Section {
+  contentType: 'video';
+  thumbnailSrc: string;
+}

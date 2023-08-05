@@ -3,14 +3,11 @@ import {View, ScrollView, SafeAreaView} from 'react-native';
 import tw from 'twrnc';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {
-  AssignmentSection,
-  RootStackParamList,
-  Section,
-  VideoSection,
-} from '../types';
+import {AssignmentSection, RootStackParamList, Section} from '../types';
+import {VideoSection} from '../components/VideoSectionCard';
 import ErrorComponent from '../components/ErrorComponent';
 import SectionCard from '../components/SectionCard';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 const sections: Section[] | VideoSection[] | AssignmentSection[] = [
   {
@@ -56,6 +53,11 @@ const sections: Section[] | VideoSection[] | AssignmentSection[] = [
     contentType: 'markdown',
   },
 ];
+
+export type TopicDetailsScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'TopicDetails'
+>;
 
 type TopicDetailsRouteProp = RouteProp<RootStackParamList, 'TopicDetails'>;
 

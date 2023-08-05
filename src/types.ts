@@ -18,6 +18,12 @@ export interface Unit {
   number: number;
   name: string;
   icon?: string;
+  blocks: Block[];
+}
+
+export interface Block {
+  id: number;
+  name: string;
   topics: Topic[];
 }
 
@@ -47,11 +53,6 @@ export interface Section {
 export interface AssignmentSection extends Section {
   type: 'assignment';
   deadline: Date;
-}
-
-export interface VideoSection extends Section {
-  contentType: 'video';
-  thumbnailSrc: string;
 }
 
 export interface SectionCardProps {

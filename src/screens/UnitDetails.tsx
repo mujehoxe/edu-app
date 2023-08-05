@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, FlatList} from 'react-native';
 import tw from 'twrnc';
-import {Topic} from '../types';
+import {Block} from '../types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types';
-import TopicCard from '../components/TopicCard';
+import BlockCard from '../components/BlockCard';
 import ErrorComponent from '../components/ErrorComponent';
 import {RouteProp} from '@react-navigation/native';
 
@@ -15,27 +15,24 @@ interface UnitDetailsProps
   route: UnitDetailsRouteProp;
 }
 
-const UnitDetails: React.FC<UnitDetailsProps> = ({route, navigation}) => {
+const UnitDetails: React.FC<UnitDetailsProps> = ({route}) => {
   const {unit} = route.params;
 
   if (!unit) {
     return <ErrorComponent message="Unit Not Found" />;
   }
 
-  const renderTopic = ({item}: {item: Topic}) => (
+  const renderBlock = ({item}: {item: Block}) => (
     <View style={tw`px-4 py-3`}>
-      <TopicCard
-        topic={item}
-        onPress={() => navigation.navigate('TopicDetails', {topic: item})}
-      />
+      <BlockCard block={item} />
     </View>
   );
 
   return (
     <View style={tw`flex-1 bg-white`}>
       <FlatList
-        data={unit.topics}
-        renderItem={renderTopic}
+        data={unit.blocks}
+        renderItem={renderBlock}
         keyExtractor={item => item.id.toString()}
         contentContainerStyle={tw`pb-8`}
       />

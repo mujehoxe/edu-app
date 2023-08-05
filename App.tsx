@@ -24,27 +24,62 @@ const unitsData: Unit[] = [
     number: 1,
     name: 'المتابعة الزمنية لتحول كيميائي في وسط مائي',
     icon: require('./src/assets/unitIcon.png'),
-    topics: [
+    blocks: [
       {
-        id: 11,
-        name: 'الموضوع 1.1',
-        sections: [
-          {title: 'المقطع 1', type: 'lecture'},
-          {title: '2 المقطع', type: 'solution'},
+        id: 1,
+        name: 'المجموعة 1',
+        topics: [
+          {
+            id: 11,
+            name: 'الموضوع 1.1',
+          },
+          {id: 12, name: 'الموضوع 1.2'},
+          // Add more topics for Unit 1 as needed
         ],
       },
-      {id: 12, name: 'الموضوع 1.2'},
-      // Add more topics for Unit 1 as needed
+      {
+        id: 2,
+        name: 'المجموعة 2',
+        topics: [
+          {
+            id: 11,
+            name: 'الموضوع 1.1',
+          },
+          {id: 12, name: 'الموضوع 1.2'},
+          // Add more topics for Unit 1 as needed
+        ],
+      },
     ],
   },
   {
     id: 2,
     number: 2,
     name: 'المتابعة الزمنية لتحول كيميائي في وسط مائي',
-    topics: [
-      {id: 21, name: 'الموضوع 2.1'},
-      {id: 22, name: 'الموضوع 2.2'},
-      // Add more topics for Unit 2 as needed
+    blocks: [
+      {
+        id: 1,
+        name: 'المجموعة 1',
+        topics: [
+          {
+            id: 11,
+            name: 'الموضوع 1.1',
+          },
+          {id: 12, name: 'الموضوع 1.2'},
+          // Add more topics for Unit 1 as needed
+        ],
+      },
+      {
+        id: 2,
+        name: 'المجموعة 2',
+        topics: [
+          {
+            id: 11,
+            name: 'الموضوع 1.1',
+          },
+          {id: 12, name: 'الموضوع 1.2'},
+          // Add more topics for Unit 1 as needed
+        ],
+      },
     ],
   },
   // Add more units as needed
