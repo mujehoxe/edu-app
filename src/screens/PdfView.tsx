@@ -28,6 +28,7 @@ interface PdfViewProps
 const PdfView: React.FC<PdfViewProps> = ({route}) => {
   const {src} = route.params;
   const [pdfWidth, setPdfWidth] = useState(Dimensions.get('window').width);
+  const [isHeaderShown, setIsHeaderShown] = useState<boolean>(true);
   const navigation = useNavigation<PdfViewScreenNavigationProp>();
 
   navigation.setOptions({
@@ -35,6 +36,7 @@ const PdfView: React.FC<PdfViewProps> = ({route}) => {
       <PrinterIcon style={tw`text-black`} onPress={printPDF} />
     ),
     headerTransparent: true,
+    headerShown: isHeaderShown,
   });
 
   const printPDF = async () => {
@@ -57,6 +59,7 @@ const PdfView: React.FC<PdfViewProps> = ({route}) => {
         source={{uri: src}}
         trustAllCerts={false}
         fitPolicy={0}
+        onPageSingleTap={() => setIsHeaderShown(!isHeaderShown)}
         style={[tw`flex-1`, {width: pdfWidth, height: '100%'}]}
       />
     </SafeAreaView>
