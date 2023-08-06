@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
 import tw from 'twrnc';
 import Video from 'react-native-video';
 import {View} from 'react-native';
@@ -6,8 +6,6 @@ import {RootStackParamList} from '../types';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import SystemNavigationBar from 'react-native-system-navigation-bar';
-import Orientation from 'react-native-orientation-locker';
 import convertToProxyURL from 'react-native-video-cache-control';
 import useImmersiveLandscape from '../hooks/useImmersiveLandscape';
 

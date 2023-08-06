@@ -25,11 +25,10 @@ interface PdfViewProps
   route: PdfViewRouteProp;
 }
 
-const PdfView: React.FC<PdfViewProps> = ({route}) => {
+const PdfView: React.FC<PdfViewProps> = ({route, navigation}) => {
   const {src} = route.params;
   const [pdfWidth, setPdfWidth] = useState(Dimensions.get('window').width);
   const [isHeaderShown, setIsHeaderShown] = useState<boolean>(true);
-  const navigation = useNavigation<PdfViewScreenNavigationProp>();
 
   navigation.setOptions({
     headerRight: () => (
@@ -51,7 +50,7 @@ const PdfView: React.FC<PdfViewProps> = ({route}) => {
     };
 
     Dimensions.addEventListener('change', updatePdfWidth);
-  }, [navigation, src]);
+  }, []);
 
   return (
     <SafeAreaView style={tw`bg-slate-200 flex-1 w-full h-full bg-transparent`}>
