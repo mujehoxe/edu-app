@@ -1,10 +1,12 @@
 import {useEffect} from 'react';
+import {StatusBar} from 'react-native';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 
 const useImmersiveLandscape = () => {
   useEffect(() => {
-    SystemNavigationBar.immersive();
+    StatusBar.setHidden(true);
+    SystemNavigationBar.navigationHide();
     Orientation.lockToLandscape();
 
     const deviceOrientationListener = (orientaion: OrientationType) => {
@@ -17,9 +19,10 @@ const useImmersiveLandscape = () => {
     Orientation.addDeviceOrientationListener(deviceOrientationListener);
 
     return () => {
+      StatusBar.setHidden(false);
+      SystemNavigationBar.navigationShow();
       Orientation.lockToPortrait();
       Orientation.removeDeviceOrientationListener(deviceOrientationListener);
-      SystemNavigationBar.navigationShow();
     };
   }, []);
 };
