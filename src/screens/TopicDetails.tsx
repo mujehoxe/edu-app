@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {View, SafeAreaView, FlatList, ListRenderItem} from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  FlatList,
+  ListRenderItem,
+  StatusBar,
+} from 'react-native';
 import tw from 'twrnc';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -66,8 +72,13 @@ interface TopicDetailsProps
   route: TopicDetailsRouteProp;
 }
 
-const TopicDetails: React.FC<TopicDetailsProps> = ({route}) => {
+const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
   const [currentPlayingVideoIndex, setCurrentVideoIndex] = useState(-1);
+  navigation.setOptions({
+    headerStyle: tw`bg-[#2196F3]`,
+    headerTitleStyle: tw`text-[#FFF]`,
+    headerTintColor: 'white',
+  });
 
   const handleVideoTap = (index: number) => {
     setCurrentVideoIndex(prevIndex => {
@@ -99,6 +110,7 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route}) => {
 
   return (
     <View style={tw`flex-1 bg-white`}>
+      <StatusBar backgroundColor="#2196F3" barStyle={'light-content'} />
       <SafeAreaView style={tw`flex-1`}>
         <FlatList
           data={sections}
