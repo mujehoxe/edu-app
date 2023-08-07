@@ -72,3 +72,4 @@ yarn-error.log
 /android/gradle*
 /android/.gradle
 /ios
+android/app/google-services.json
