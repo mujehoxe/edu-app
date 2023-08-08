@@ -21,13 +21,13 @@ export interface Unit {
 }
 
 export interface Block {
-  id: number;
+  id: string;
   name: string;
   topics: Topic[];
 }
 
 export interface Topic {
-  id: number;
+  id: string;
   name: string;
   sections?: Section[];
 }

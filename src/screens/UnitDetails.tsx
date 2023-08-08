@@ -1,12 +1,12 @@
-import React from 'react';
-import {View, FlatList} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, FlatList, ActivityIndicator} from 'react-native';
 import tw from 'twrnc';
 import {Block} from '../types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types';
 import BlockCard from '../components/BlockCard';
-import ErrorComponent from '../components/ErrorComponent';
 import {RouteProp} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
 
 type UnitDetailsRouteProp = RouteProp<RootStackParamList, 'UnitDetails'>;
 
@@ -18,9 +18,29 @@ interface UnitDetailsProps
 const UnitDetails: React.FC<UnitDetailsProps> = ({route}) => {
   const {unit} = route.params;
 
-  if (!unit) {
-    return <ErrorComponent message="Unit Not Found" />;
-  }
+  const [isLoading, setIsLoading] = useState(true);
+  const [blocks, setBlocks] = useState<Block[]>([]);
+
+  useEffect(() => {
+    const subscriber = firestore()
+      .collection('Blocks')
+      .where('unitId', '==', unit.id)
+      .onSnapshot(querySnapshot => {
+        const loadedBlocks: Block[] = querySnapshot.docs.map(
+          documentSnapshot => {
+            return {
+              ...(documentSnapshot.data() as Block),
+              id: documentSnapshot.id,
+            };
+          },
+        );
+
+        setBlocks(loadedBlocks);
+        setIsLoading(false);
+      });
+
+    return () => subscriber();
+  }, [unit]);
 
   const renderBlock = ({item}: {item: Block}) => (
     <View style={tw`px-4 py-3`}>
@@ -28,10 +48,14 @@ const UnitDetails: React.FC<UnitDetailsProps> = ({route}) => {
     </View>
   );
 
+  if (isLoading) {
+    return <ActivityIndicator size="large" style={tw`flex-1 justify-center`} />;
+  }
+
   return (
     <View style={tw`flex-1 bg-white`}>
       <FlatList
-        data={unit.blocks}
+        data={blocks}
         renderItem={renderBlock}
         keyExtractor={item => item.id.toString()}
         contentContainerStyle={tw`pb-8`}
