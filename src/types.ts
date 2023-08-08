@@ -32,15 +32,8 @@ export interface Topic {
   sections?: Section[];
 }
 
-export type SectionContentTypes =
-  | 'video'
-  | 'markdown'
-  | 'pdf'
-  | 'image'
-  | 'svg';
-
 export interface Section {
-  id: number;
+  id: string;
   name: string;
   dateCreated?: Date;
   dateModified?: Date;
@@ -48,6 +41,13 @@ export interface Section {
   contentType: SectionContentTypes;
   src: string;
 }
+
+export type SectionContentTypes =
+  | 'video'
+  | 'markdown'
+  | 'pdf'
+  | 'image'
+  | 'svg';
 
 export interface AssignmentSection extends Section {
   type: 'assignment';
