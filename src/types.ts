@@ -41,7 +41,7 @@ export type SectionContentTypes =
 
 export interface Section {
   id: number;
-  title: string;
+  name: string;
   dateCreated?: Date;
   dateModified?: Date;
   type?: 'lecture' | 'assignment' | 'solution';

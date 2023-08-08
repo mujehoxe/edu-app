@@ -39,7 +39,7 @@ const SectionCard: React.FC<SectionCardProps> = ({
     <View style={tw`bg-white shadow-md rounded-md mb-4`}>
       <View style={tw`bg-gray-100 p-4 border-b border-gray-300 rounded-t-md`}>
         <Text style={tw`text-lg font-semibold text-slate-900`}>
-          {section.title}
+          {section.name}
         </Text>
       </View>
       <ContentComponent
