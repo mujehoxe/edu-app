@@ -27,7 +27,7 @@ const UnitCard: React.FC<UnitProps> = ({unit, navigation}) => {
       }}>
       <View style={tw`flex-row items-center flex-1`}>
         {unit.icon ? (
-          <Image style={tw`w-14 h-14`} source={unit.icon} />
+          <Image style={tw`w-14 h-14`} source={{uri: unit.icon}} />
         ) : (
           <XCircleIcon width={56} height={56} style={tw`text-black`} />
         )}

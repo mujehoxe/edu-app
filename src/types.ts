@@ -1,7 +1,7 @@
 import {OnProgressData} from 'react-native-video';
 
 export type RootStackParamList = {
-  Units: {units: Unit[]};
+  Units: {};
   UnitDetails: {unit: Unit};
   TopicDetails: {topic: Topic};
   PdfView: {src: string};
@@ -14,11 +14,10 @@ export type RootStackParamList = {
 };
 
 export interface Unit {
-  id: number;
+  id: string;
   number: number;
   name: string;
   icon?: string;
-  blocks: Block[];
 }
 
 export interface Block {

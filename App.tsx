@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Units from './src/screens/Units';
 import UnitDetails from './src/screens/UnitDetails';
-import {RootStackParamList, Unit} from './src/types';
+import {RootStackParamList} from './src/types';
 import TopicDetails from './src/screens/TopicDetails';
 import PdfView from './src/screens/PdfView';
 import i18n from 'i18next';
@@ -18,73 +18,6 @@ import FullscreenVideoModal from './src/screens/FullscreenVideoModal';
 import Orientation from 'react-native-orientation-locker';
 import {clearCache} from 'react-native-video-cache-control';
 
-const unitsData: Unit[] = [
-  {
-    id: 1,
-    number: 1,
-    name: 'المتابعة الزمنية لتحول كيميائي في وسط مائي',
-    icon: require('./src/assets/unitIcon.png'),
-    blocks: [
-      {
-        id: 1,
-        name: 'المجموعة 1',
-        topics: [
-          {
-            id: 11,
-            name: 'الموضوع 1.1',
-          },
-          {id: 12, name: 'الموضوع 1.2'},
-          // Add more topics for Unit 1 as needed
-        ],
-      },
-      {
-        id: 2,
-        name: 'المجموعة 2',
-        topics: [
-          {
-            id: 11,
-            name: 'الموضوع 1.1',
-          },
-          {id: 12, name: 'الموضوع 1.2'},
-          // Add more topics for Unit 1 as needed
-        ],
-      },
-    ],
-  },
-  {
-    id: 2,
-    number: 2,
-    name: 'المتابعة الزمنية لتحول كيميائي في وسط مائي',
-    blocks: [
-      {
-        id: 1,
-        name: 'المجموعة 1',
-        topics: [
-          {
-            id: 11,
-            name: 'الموضوع 1.1',
-          },
-          {id: 12, name: 'الموضوع 1.2'},
-          // Add more topics for Unit 1 as needed
-        ],
-      },
-      {
-        id: 2,
-        name: 'المجموعة 2',
-        topics: [
-          {
-            id: 11,
-            name: 'الموضوع 1.1',
-          },
-          {id: 12, name: 'الموضوع 1.2'},
-          // Add more topics for Unit 1 as needed
-        ],
-      },
-    ],
-  },
-  // Add more units as needed
-];
-
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const MainStack = createNativeStackNavigator();
@@ -95,7 +28,7 @@ const MainStackScreen: React.FC = () => {
   return (
     <MainStack.Navigator>
       <RootStack.Screen name="Units" options={{title: t('unitsTitle')}}>
-        {({navigation}) => <Units units={unitsData} navigation={navigation} />}
+        {({navigation}) => <Units navigation={navigation} />}
       </RootStack.Screen>
       <RootStack.Screen
         name="UnitDetails"
