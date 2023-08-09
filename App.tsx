@@ -1,59 +1,20 @@
 import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Units from './src/screens/Units';
-import UnitDetails from './src/screens/UnitDetails';
 import {RootStackParamList} from './src/types';
-import TopicDetails from './src/screens/TopicDetails';
-import PdfView from './src/screens/PdfView';
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import enTranslation from './locales/en.json';
 import arTranslation from './locales/ar.json';
-import {useTranslation} from 'react-i18next';
 import {I18nManager, StatusBar} from 'react-native';
 import RNRestart from 'react-native-restart';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import FullscreenVideoModal from './src/screens/FullscreenVideoModal';
 import Orientation from 'react-native-orientation-locker';
 import {clearCache} from 'react-native-video-cache-control';
+import {MainStackScreen} from './src/screens/MainStackScreen';
 
-const RootStack = createNativeStackNavigator<RootStackParamList>();
-
-const MainStack = createNativeStackNavigator();
-
-const MainStackScreen: React.FC = () => {
-  const {t} = useTranslation();
-
-  return (
-    <MainStack.Navigator>
-      <RootStack.Screen name="Units" options={{title: t('unitsTitle')}}>
-        {({navigation}) => <Units navigation={navigation} />}
-      </RootStack.Screen>
-      <RootStack.Screen
-        name="UnitDetails"
-        component={UnitDetails}
-        options={({route}) => {
-          const unitName = route.params.unit.name;
-          return {title: unitName};
-        }}
-      />
-      <RootStack.Screen
-        name="TopicDetails"
-        component={TopicDetails}
-        options={({route}) => {
-          const topicName = route.params.topic.name;
-          return {title: topicName};
-        }}
-      />
-      <RootStack.Screen
-        name="PdfView"
-        component={PdfView}
-        options={{title: ''}}
-      />
-    </MainStack.Navigator>
-  );
-};
+export const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
   useEffect(() => {
