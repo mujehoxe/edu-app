@@ -6,6 +6,7 @@
   "jumpToPDF": "Jump To PDF",
   "unit": "unit",
   "noSections": "Topic yet to be filled.",
+  "noBlocks": "Unit yet to be filled.",
   "noConnection": "Connection Lost",
   "connectionRestored": "Connection Restored"
 }
