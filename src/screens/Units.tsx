@@ -15,10 +15,9 @@ const Units: React.FC<UnitsProps> = ({navigation}) => {
   const {t} = useTranslation();
 
   const [units, setUnits] = useState<Unit[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
     const subscriber = firestore()
       .collection('Units')
       .onSnapshot(querySnapshot => {
