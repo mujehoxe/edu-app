@@ -59,7 +59,6 @@ const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
           setCurrentPlaybackTime(0);
           onPress(); // to pause the video
         }}
-        muted={false}
       />
 
       {!isPlaying && (
