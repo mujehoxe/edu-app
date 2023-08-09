@@ -6,6 +6,8 @@
   "jumpToPDF": "انتقل إلى PDF",
   "unit": "الوحدة",
   "noSections": "لم يتم ملء الموضوع بعد.",
+  "noBlocks": "لم يتم ملء الوحدة بعد.",
+  "noTopics": "لم يتم ملء المجموعة.",
   "noConnection": "فقد الإتصال",
   "connectionRestored": "تمت إعادة إلاتصال"
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, ActivityIndicator} from 'react-native';
+import {View, FlatList, ActivityIndicator, Text} from 'react-native';
 import tw from 'twrnc';
 import {Block} from '../types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -7,6 +7,7 @@ import {RootStackParamList} from '../types';
 import BlockCard from '../components/BlockCard';
 import {RouteProp} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
+import {useTranslation} from 'react-i18next';
 
 type UnitDetailsRouteProp = RouteProp<RootStackParamList, 'UnitDetails'>;
 
@@ -16,6 +17,8 @@ interface UnitDetailsProps
 }
 
 const UnitDetails: React.FC<UnitDetailsProps> = ({route}) => {
+  const {t} = useTranslation();
+
   const {unit} = route.params;
 
   const [isLoading, setIsLoading] = useState(true);
