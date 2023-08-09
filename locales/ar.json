@@ -4,5 +4,6 @@
   "deadline": "التسليم: ",
   "dateFormat": "dd/MM/yyyy",
   "jumpToPDF": "انتقل إلى PDF",
-  "unit": "الوحدة"
+  "unit": "الوحدة",
+  "noSections": "لم يتم ملء الموضوع بعد."
 }

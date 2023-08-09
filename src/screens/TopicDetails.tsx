@@ -5,6 +5,8 @@ import {
   FlatList,
   ListRenderItem,
   StatusBar,
+  Text,
+  ActivityIndicator,
 } from 'react-native';
 import tw from 'twrnc';
 import {RouteProp} from '@react-navigation/native';
@@ -14,6 +16,7 @@ import {VideoSection} from '../components/VideoSectionCard';
 import SectionCard from '../components/SectionCard';
 import {StackNavigationProp} from '@react-navigation/stack';
 import firestore from '@react-native-firebase/firestore';
+import {useTranslation} from 'react-i18next';
 
 export type TopicDetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -28,6 +31,9 @@ interface TopicDetailsProps
 }
 
 const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
+  const {t} = useTranslation();
+  const [isLoading, setIsLoading] = useState(true);
+
   const {topic} = route.params;
 
   const [sections, setSections] = useState<
@@ -49,6 +55,7 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
         );
 
         setSections(loadedSections);
+        setIsLoading(false);
       });
 
     return () => subscriber();
@@ -83,17 +90,27 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
     />
   );
 
+  if (isLoading) {
+    return <ActivityIndicator size="large" style={tw`flex-1 justify-center`} />;
+  }
+
   return (
     <View style={tw`flex-1 bg-white`}>
       <StatusBar backgroundColor="#2196F3" barStyle={'light-content'} />
       <SafeAreaView style={tw`flex-1`}>
-        <FlatList
-          data={sections}
-          renderItem={renderSection}
-          keyExtractor={item => item.id.toString()}
-          maxToRenderPerBatch={3}
-          initialNumToRender={3}
-        />
+        {sections.length > 0 ? (
+          <FlatList
+            data={sections}
+            renderItem={renderSection}
+            keyExtractor={item => item.id.toString()}
+            maxToRenderPerBatch={3}
+            initialNumToRender={3}
+          />
+        ) : (
+          <View style={tw`flex-1 justify-center items-center`}>
+            <Text style={tw`text-slate-700 text-lg`}>{t('noSections')}</Text>
+          </View>
+        )}
       </SafeAreaView>
     </View>
   );
