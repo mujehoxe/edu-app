@@ -13,6 +13,7 @@ import FullscreenVideoModal from './src/screens/FullscreenVideoModal';
 import Orientation from 'react-native-orientation-locker';
 import {clearCache} from 'react-native-video-cache-control';
 import {MainStackScreen} from './src/screens/MainStackScreen';
+import ConnectivityIndicator from './src/components/ConnectivityIndicator';
 
 export const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -44,6 +45,7 @@ const App: React.FC = () => {
           options={{title: '', headerTransparent: true}}
         />
       </RootStack.Navigator>
+      <ConnectivityIndicator />
     </NavigationContainer>
   );
 };

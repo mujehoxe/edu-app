@@ -5,5 +5,7 @@
   "dateFormat": "MM/dd/yyyy",
   "jumpToPDF": "Jump To PDF",
   "unit": "unit",
-  "noSections": "Topic yet to be filled."
+  "noSections": "Topic yet to be filled.",
+  "noConnection": "Connection Lost",
+  "connectionRestored": "Connection Restored"
 }

@@ -5,5 +5,7 @@
   "dateFormat": "dd/MM/yyyy",
   "jumpToPDF": "انتقل إلى PDF",
   "unit": "الوحدة",
-  "noSections": "لم يتم ملء الموضوع بعد."
+  "noSections": "لم يتم ملء الموضوع بعد.",
+  "noConnection": "فقد الإتصال",
+  "connectionRestored": "تمت إعادة إلاتصال"
 }
