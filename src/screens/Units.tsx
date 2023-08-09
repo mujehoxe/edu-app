@@ -52,7 +52,7 @@ const Units: React.FC<UnitsProps> = ({navigation}) => {
         contentContainerStyle={tw`flex-1 pb-8`}
         ListEmptyComponent={
           <View style={tw`justify-center items-center`}>
-            <Text style={tw`text-slate-700 text-lg`}>{t('noUnits')}</Text>
+            <Text>{t('noUnits')}</Text>
           </View>
         }
       />
