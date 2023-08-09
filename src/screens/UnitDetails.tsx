@@ -57,18 +57,17 @@ const UnitDetails: React.FC<UnitDetailsProps> = ({route}) => {
 
   return (
     <View style={tw`flex-1 bg-white`}>
-      {blocks.length > 0 ? (
-        <FlatList
-          data={blocks}
-          renderItem={renderBlock}
-          keyExtractor={item => item.id.toString()}
-          contentContainerStyle={tw`pb-8`}
-        />
-      ) : (
-        <View style={tw`flex-1 justify-center items-center`}>
-          <Text style={tw`text-slate-700 text-lg`}>{t('noBlocks')}</Text>
-        </View>
-      )}
+      <FlatList
+        data={blocks}
+        renderItem={renderBlock}
+        keyExtractor={item => item.id.toString()}
+        contentContainerStyle={tw`flex-1 pb-8`}
+        ListEmptyComponent={
+          <View style={tw`justify-center items-center`}>
+            <Text style={tw`text-slate-700 text-lg`}>{t('noBlocks')}</Text>
+          </View>
+        }
+      />
     </View>
   );
 };
