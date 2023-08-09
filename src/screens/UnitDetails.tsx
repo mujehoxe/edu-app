@@ -63,7 +63,7 @@ const UnitDetails: React.FC<UnitDetailsProps> = ({route}) => {
         keyExtractor={item => item.id.toString()}
         contentContainerStyle={tw`flex-1 pb-8`}
         ListEmptyComponent={
-          <View style={tw`justify-center items-center`}>
+          <View style={tw`flex-1 justify-center items-center`}>
             <Text style={tw`text-slate-700 text-lg`}>{t('noBlocks')}</Text>
           </View>
         }
