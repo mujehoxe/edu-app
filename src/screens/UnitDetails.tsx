@@ -1,12 +1,13 @@
-import React from 'react';
-import {View, FlatList} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, FlatList, ActivityIndicator, Text} from 'react-native';
 import tw from 'twrnc';
-import {Topic} from '../types';
+import {Block} from '../types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types';
-import TopicCard from '../components/TopicCard';
-import ErrorComponent from '../components/ErrorComponent';
+import BlockCard from '../components/BlockCard';
 import {RouteProp} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
+import {useTranslation} from 'react-i18next';
 
 type UnitDetailsRouteProp = RouteProp<RootStackParamList, 'UnitDetails'>;
 
@@ -15,29 +16,57 @@ interface UnitDetailsProps
   route: UnitDetailsRouteProp;
 }
 
-const UnitDetails: React.FC<UnitDetailsProps> = ({route, navigation}) => {
+const UnitDetails: React.FC<UnitDetailsProps> = ({route}) => {
+  const {t} = useTranslation();
+
   const {unit} = route.params;
 
-  if (!unit) {
-    return <ErrorComponent message="Unit Not Found" />;
-  }
+  const [isLoading, setIsLoading] = useState(true);
+  const [blocks, setBlocks] = useState<Block[]>([]);
 
-  const renderTopic = ({item}: {item: Topic}) => (
+  useEffect(() => {
+    const subscriber = firestore()
+      .collection('Blocks')
+      .where('unitId', '==', unit.id)
+      .onSnapshot(querySnapshot => {
+        const loadedBlocks: Block[] = querySnapshot.docs.map(
+          documentSnapshot => {
+            return {
+              ...(documentSnapshot.data() as Block),
+              id: documentSnapshot.id,
+            };
+          },
+        );
+
+        setBlocks(loadedBlocks);
+        setIsLoading(false);
+      });
+
+    return () => subscriber();
+  }, [unit]);
+
+  const renderBlock = ({item}: {item: Block}) => (
     <View style={tw`px-4 py-3`}>
-      <TopicCard
-        topic={item}
-        onPress={() => navigation.navigate('TopicDetails', {topic: item})}
-      />
+      <BlockCard block={item} />
     </View>
   );
+
+  if (isLoading) {
+    return <ActivityIndicator size="large" style={tw`flex-1 justify-center`} />;
+  }
 
   return (
     <View style={tw`flex-1 bg-white`}>
       <FlatList
-        data={unit.topics}
-        renderItem={renderTopic}
+        data={blocks}
+        renderItem={renderBlock}
         keyExtractor={item => item.id.toString()}
-        contentContainerStyle={tw`pb-8`}
+        contentContainerStyle={tw`flex-1 pb-8`}
+        ListEmptyComponent={
+          <View style={tw`flex-1 justify-center items-center`}>
+            <Text style={tw`text-slate-700 text-lg`}>{t('noBlocks')}</Text>
+          </View>
+        }
       />
     </View>
   );

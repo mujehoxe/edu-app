@@ -1,12 +1,14 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, I18nManager} from 'react-native';
+import {View, Text, TouchableOpacity, I18nManager, Image} from 'react-native';
 import tw from 'twrnc';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Unit} from '../types';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
+  XCircleIcon,
 } from 'react-native-heroicons/outline';
+import {useTranslation} from 'react-i18next';
 
 interface UnitProps {
   unit: Unit;
@@ -15,6 +17,7 @@ interface UnitProps {
 
 const UnitCard: React.FC<UnitProps> = ({unit, navigation}) => {
   const isRTL = I18nManager.isRTL;
+  const {t} = useTranslation();
 
   return (
     <TouchableOpacity
@@ -23,9 +26,13 @@ const UnitCard: React.FC<UnitProps> = ({unit, navigation}) => {
         navigation.navigate('UnitDetails', {unit});
       }}>
       <View style={tw`flex-row items-center flex-1`}>
-        <View style={tw`w-10 h-10 rounded-full bg-blue-500`} />
+        {unit.icon ? (
+          <Image style={tw`w-14 h-14`} source={{uri: unit.icon}} />
+        ) : (
+          <XCircleIcon width={56} height={56} style={tw`text-black`} />
+        )}
         <Text style={tw`text-base text-slate-900 ml-4 font-semibold flex-1`}>
-          {unit.name}
+          {t('unit') + unit.number + ': ' + unit.name}
         </Text>
         {isRTL ? (
           <ChevronLeftIcon style={tw`w-6 h-6 text-slate-600`} />

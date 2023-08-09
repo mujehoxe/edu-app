@@ -1,61 +1,27 @@
-import React, {useState} from 'react';
-import {View, ScrollView, SafeAreaView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  SafeAreaView,
+  FlatList,
+  ListRenderItem,
+  StatusBar,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 import tw from 'twrnc';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {
-  AssignmentSection,
-  RootStackParamList,
-  Section,
-  VideoSection,
-} from '../types';
-import ErrorComponent from '../components/ErrorComponent';
+import {AssignmentSection, RootStackParamList, Section} from '../types';
+import {VideoSection} from '../components/VideoSectionCard';
 import SectionCard from '../components/SectionCard';
+import {StackNavigationProp} from '@react-navigation/stack';
+import firestore from '@react-native-firebase/firestore';
+import {useTranslation} from 'react-i18next';
 
-const sections: Section[] | VideoSection[] | AssignmentSection[] = [
-  {
-    id: 1,
-    title: 'درس',
-    src: 'https://vjs.zencdn.net/v/oceans.mp4',
-    contentType: 'video',
-    thumbnailSrc:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPT0JDPj5ZO-PV_w8-AnufjkUlj1Xp0WeEXA&usqp=CAU',
-  },
-  {
-    id: 2,
-    title: 'شكل 1',
-    src: 'https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/410.svg',
-    contentType: 'svg',
-  },
-  {
-    id: 3,
-    title: 'حل تمرين',
-    src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    contentType: 'video',
-    thumbnailSrc:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPT0JDPj5ZO-PV_w8-AnufjkUlj1Xp0WeEXA&usqp=CAU',
-  },
-  {
-    id: 4,
-    title: 'شكل 2',
-    src: 'https://i0.wp.com/blog.filestack.com/wp-content/uploads/2019/03/image-file-extensions.png',
-    contentType: 'image',
-  },
-  {
-    id: 5,
-    title: 'واجب',
-    src: 'https://www.africau.edu/images/default/sample.pdf',
-    contentType: 'pdf',
-    type: 'assignment',
-    deadline: new Date('2023-07-29'),
-  },
-  {
-    id: 6,
-    title: 'قوانين',
-    src: 'https://gist.githubusercontent.com/mujehoxe/7191807dbed8279af5c19f6b9f6f8c7e/raw/99eecef422f00b3f4598f1b6efafd9280f81798b/example-arabic.md',
-    contentType: 'markdown',
-  },
-];
+export type TopicDetailsScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'TopicDetails'
+>;
 
 type TopicDetailsRouteProp = RouteProp<RootStackParamList, 'TopicDetails'>;
 
@@ -64,8 +30,43 @@ interface TopicDetailsProps
   route: TopicDetailsRouteProp;
 }
 
-const TopicDetails: React.FC<TopicDetailsProps> = ({route}) => {
+const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
+  const {t} = useTranslation();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const {topic} = route.params;
+
+  const [sections, setSections] = useState<
+    (Section | VideoSection | AssignmentSection)[]
+  >([]);
+
+  useEffect(() => {
+    const subscriber = firestore()
+      .collection('Sections')
+      .where('topicId', '==', topic.id)
+      .onSnapshot(querySnapshot => {
+        const loadedSections: Section[] = querySnapshot.docs.map(
+          documentSnapshot => {
+            return {
+              ...(documentSnapshot.data() as Section),
+              id: documentSnapshot.id,
+            };
+          },
+        );
+
+        setSections(loadedSections);
+        setIsLoading(false);
+      });
+
+    return () => subscriber();
+  }, [topic.id]);
+
   const [currentPlayingVideoIndex, setCurrentVideoIndex] = useState(-1);
+  navigation.setOptions({
+    headerStyle: tw`bg-[#2196F3]`,
+    headerTitleStyle: tw`text-[#FFF]`,
+    headerTintColor: 'white',
+  });
 
   const handleVideoTap = (index: number) => {
     setCurrentVideoIndex(prevIndex => {
@@ -77,33 +78,39 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route}) => {
     });
   };
 
-  const {topic} = route.params;
+  const renderSection: ListRenderItem<Section> = ({item, index}) => (
+    <SectionCard
+      section={item}
+      isPlaying={
+        item.contentType === 'video' && index === currentPlayingVideoIndex
+      }
+      onPress={
+        item.contentType === 'video' ? () => handleVideoTap(index) : undefined
+      }
+    />
+  );
 
-  if (!topic) {
-    return <ErrorComponent message="Topic Not Found" />;
+  if (isLoading) {
+    return <ActivityIndicator size="large" style={tw`flex-1 justify-center`} />;
   }
 
   return (
     <View style={tw`flex-1 bg-white`}>
+      <StatusBar backgroundColor="#2196F3" barStyle={'light-content'} />
       <SafeAreaView style={tw`flex-1`}>
-        <ScrollView style={tw`flex-1 mx-5`} scrollEventThrottle={16}>
-          {sections?.map((item, index) => (
-            <View key={item.id} style={tw`mb-4`}>
-              <SectionCard
-                section={item}
-                isPlaying={
-                  item.contentType === 'video' &&
-                  index === currentPlayingVideoIndex
-                }
-                onPress={
-                  item.contentType === 'video'
-                    ? () => handleVideoTap(index)
-                    : undefined
-                }
-              />
+        <FlatList
+          data={sections}
+          renderItem={renderSection}
+          keyExtractor={item => item.id.toString()}
+          maxToRenderPerBatch={3}
+          initialNumToRender={3}
+          contentContainerStyle={tw`flex-1 pb-8`}
+          ListEmptyComponent={
+            <View style={tw`flex-1 justify-center items-center`}>
+              <Text style={tw`text-slate-700 text-lg`}>{t('noSections')}</Text>
             </View>
-          ))}
-        </ScrollView>
+          }
+        />
       </SafeAreaView>
     </View>
   );

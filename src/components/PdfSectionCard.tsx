@@ -17,7 +17,7 @@ const PdfSectionCard: React.FC<SectionCardProps> = ({section}) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('PdfView', {section});
+        navigation.navigate('PdfView', {src: section.src});
       }}
       style={tw`bg-white shadow-md rounded-md p-4 flex-col items-center justify-between`}>
       <View style={tw`flex-row items-center h-36`}>

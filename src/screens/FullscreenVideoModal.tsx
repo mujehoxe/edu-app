@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
 import tw from 'twrnc';
 import Video from 'react-native-video';
 import {View} from 'react-native';
@@ -6,9 +6,8 @@ import {RootStackParamList} from '../types';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import SystemNavigationBar from 'react-native-system-navigation-bar';
-import Orientation from 'react-native-orientation-locker';
 import convertToProxyURL from 'react-native-video-cache-control';
+import useImmersiveLandscape from '../hooks/useImmersiveLandscape';
 
 export type FullscreenVideoModalNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -29,22 +28,7 @@ const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({route}) => {
   const {src, paused, currentPlaybackTime, onProgress} = route.params;
   const modalVideoRef = useRef<Video>(null);
 
-  useEffect(() => {
-    SystemNavigationBar.immersive();
-    Orientation.lockToLandscape();
-    Orientation.addDeviceOrientationListener(orientaion => {
-      orientaion !== 'UNKNOWN' &&
-        (orientaion === 'LANDSCAPE-LEFT'
-          ? Orientation.lockToLandscapeLeft()
-          : Orientation.lockToLandscapeRight());
-    });
-
-    return () => {
-      Orientation.lockToPortrait();
-      Orientation.removeAllListeners();
-      SystemNavigationBar.navigationShow();
-    };
-  }, [currentPlaybackTime]);
+  useImmersiveLandscape();
 
   return (
     <View style={tw`bg-black w-full h-full`}>
