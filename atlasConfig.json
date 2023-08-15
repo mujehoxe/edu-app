@@ -1,0 +1,9 @@
+{
+  "appId": "eduapp-cmhny",
+  "appUrl": "https://realm.mongodb.com/groups/64d52f47d22872333d0ef390/apps/64da59adc299aab95891f85e",
+  "baseUrl": "https://realm.mongodb.com",
+  "clientApiBaseUrl": "https://eu-west-2.aws.realm.mongodb.com",
+  "dataApiBaseUrl": "https://eu-west-2.aws.data.mongodb-api.com",
+  "dataExplorerLink": "https://cloud.mongodb.com/links/64d52f47d22872333d0ef390/explorer/Cluster0/database/collection/find",
+  "dataSourceName": "mongodb-atlas"
+}
