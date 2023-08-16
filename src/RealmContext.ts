@@ -1,6 +1,7 @@
 import {createRealmContext} from '@realm/react';
-import {Unit} from './Schemas';
+import {Block, Topic, Unit} from './Schemas';
 
 export const realmContext = createRealmContext({
-  schema: [Unit],
+  schema: [Unit, Block, Topic],
+  schemaVersion: 3,
 });

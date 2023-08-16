@@ -1,40 +1,34 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, Text, View} from 'react-native';
 import tw from 'twrnc';
 import TopicCard from './TopicCard';
-import {Block, Topic} from '../types';
-import firestore from '@react-native-firebase/firestore';
 import {useTranslation} from 'react-i18next';
+import {Block, Topic} from '../Schemas';
+import {realmContext} from '../RealmContext';
 
 export interface BlockCardProps {
   block: Block;
 }
 
+const {useRealm, useQuery} = realmContext;
+
 const BlockCard: React.FC<BlockCardProps> = ({block}) => {
   const {t} = useTranslation();
 
-  const [topics, setTopics] = useState<Topic[]>([]);
+  const realm = useRealm();
+
+  const topics = useQuery(Topic).filtered('block_id == $0', block._id);
 
   useEffect(() => {
-    const subscriber = firestore()
-      .collection('Blocks')
-      .doc(block.id)
-      .collection('Topics')
-      .onSnapshot(querySnapshot => {
-        const loadedTopics: Topic[] = querySnapshot.docs.map(
-          documentSnapshot => {
-            return {
-              ...(documentSnapshot.data() as Topic),
-              id: documentSnapshot.id,
-            };
-          },
-        );
-
-        setTopics(loadedTopics);
-      });
-
-    return () => subscriber();
-  }, [block.id]);
+    realm.subscriptions.update(mutableSubs => {
+      mutableSubs.add(
+        realm.objects(Topic).filtered('block_id == $0', block._id),
+        {
+          name: 'topicsSubscription' + block._id.toString(),
+        },
+      );
+    });
+  }, [realm, topics, block]);
 
   const renderTopic = ({item}: {item: Topic}) => (
     <View style={tw`px-4 py-3`}>
@@ -52,7 +46,7 @@ const BlockCard: React.FC<BlockCardProps> = ({block}) => {
       <FlatList
         data={topics}
         renderItem={renderTopic}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => item._id.toString()}
         contentContainerStyle={tw`flex-1 pb-8`}
         ListEmptyComponent={
           <View style={tw`flex-1 justify-center items-center`}>

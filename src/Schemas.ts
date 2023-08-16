@@ -21,32 +21,32 @@ export class Unit extends Realm.Object<Unit> {
 export class Block extends Realm.Object<Block> {
   _id!: Realm.BSON.ObjectId;
   name!: string;
-  unit?: Unit;
+  unit_id!: Realm.BSON.ObjectId;
 
-  static schema: {
-    name: 'Block';
+  static schema = {
+    name: 'Block',
     properties: {
-      _id: 'objectId';
-      name: 'string';
-      unit: 'Unit';
-    };
-    primaryKey: '_id';
+      _id: 'objectId',
+      name: 'string',
+      unit_id: 'objectId',
+    },
+    primaryKey: '_id',
   };
 }
 
 export class Topic extends Realm.Object<Topic> {
   _id!: Realm.BSON.ObjectId;
   name!: string;
-  block?: Block;
+  block_id!: Realm.BSON.ObjectId;
 
-  static schema: {
-    name: 'Topic';
+  static schema = {
+    name: 'Topic',
     properties: {
-      _id: 'objectId';
-      block: 'Block';
-      name: 'string';
-    };
-    primaryKey: '_id';
+      _id: 'objectId',
+      name: 'string',
+      block_id: 'objectId',
+    },
+    primaryKey: '_id',
   };
 }
 
