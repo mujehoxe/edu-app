@@ -6,17 +6,16 @@ import {
   ListRenderItem,
   StatusBar,
   Text,
-  ActivityIndicator,
 } from 'react-native';
 import tw from 'twrnc';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {AssignmentSection, RootStackParamList, Section} from '../types';
-import {VideoSection} from '../components/VideoSectionCard';
+import {RootStackParamList} from '../types';
 import SectionCard from '../components/SectionCard';
 import {StackNavigationProp} from '@react-navigation/stack';
-import firestore from '@react-native-firebase/firestore';
 import {useTranslation} from 'react-i18next';
+import {Section} from '../Schemas';
+import {realmContext} from '../RealmContext';
 
 export type TopicDetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -30,43 +29,34 @@ interface TopicDetailsProps
   route: TopicDetailsRouteProp;
 }
 
+const {useRealm, useQuery} = realmContext;
+
 const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
   const {t} = useTranslation();
-  const [isLoading, setIsLoading] = useState(true);
 
   const {topic} = route.params;
 
-  const [sections, setSections] = useState<
-    (Section | VideoSection | AssignmentSection)[]
-  >([]);
+  const realm = useRealm();
+
+  const sections = useQuery(Section).filtered('topic_id == $0', topic._id);
 
   useEffect(() => {
-    const subscriber = firestore()
-      .collection('Sections')
-      .where('topicId', '==', topic.id)
-      .onSnapshot(querySnapshot => {
-        const loadedSections: Section[] = querySnapshot.docs.map(
-          documentSnapshot => {
-            return {
-              ...(documentSnapshot.data() as Section),
-              id: documentSnapshot.id,
-            };
-          },
-        );
-
-        setSections(loadedSections);
-        setIsLoading(false);
-      });
-
-    return () => subscriber();
-  }, [topic.id]);
+    realm.subscriptions.update(mutableSubs => {
+      mutableSubs.add(
+        realm.objects(Section).filtered('topic_id == $0', topic._id),
+        {
+          name: 'sectionsSubscription' + topic._id.toString(),
+        },
+      );
+    });
+    navigation.setOptions({
+      headerStyle: tw`bg-[#2196F3]`,
+      headerTitleStyle: tw`text-[#FFF]`,
+      headerTintColor: 'white',
+    });
+  }, [realm, topic, navigation]);
 
   const [currentPlayingVideoIndex, setCurrentVideoIndex] = useState(-1);
-  navigation.setOptions({
-    headerStyle: tw`bg-[#2196F3]`,
-    headerTitleStyle: tw`text-[#FFF]`,
-    headerTintColor: 'white',
-  });
 
   const handleVideoTap = (index: number) => {
     setCurrentVideoIndex(prevIndex => {
@@ -90,10 +80,6 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
     />
   );
 
-  if (isLoading) {
-    return <ActivityIndicator size="large" style={tw`flex-1 justify-center`} />;
-  }
-
   return (
     <View style={tw`flex-1 bg-white`}>
       <StatusBar backgroundColor="#2196F3" barStyle={'light-content'} />
@@ -101,7 +87,7 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
         <FlatList
           data={sections}
           renderItem={renderSection}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item._id.toString()}
           maxToRenderPerBatch={3}
           initialNumToRender={3}
           contentContainerStyle={tw`flex-1 pb-8`}

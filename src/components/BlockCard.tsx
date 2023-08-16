@@ -28,7 +28,7 @@ const BlockCard: React.FC<BlockCardProps> = ({block}) => {
         },
       );
     });
-  }, [realm, topics, block]);
+  }, [realm, block]);
 
   const renderTopic = ({item}: {item: Topic}) => (
     <View style={tw`px-4 py-3`}>

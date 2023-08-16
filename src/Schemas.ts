@@ -1,4 +1,5 @@
 import Realm from 'realm';
+import {SectionContentTypes} from './types';
 
 export class Unit extends Realm.Object<Unit> {
   _id!: Realm.BSON.ObjectId;
@@ -53,23 +54,25 @@ export class Topic extends Realm.Object<Topic> {
 export class Section extends Realm.Object<Section> {
   _id!: Realm.BSON.ObjectId;
   name!: string;
-  type!: string;
-  contentType!: string;
+  type?: string;
+  contentType!: SectionContentTypes;
+  src!: string;
   thumbnailSrc?: string;
-  deadline?: string;
-  topic?: Topic;
+  deadline?: Date;
+  topic_id!: Realm.BSON.ObjectId;
 
-  static schema: {
-    name: 'Section';
+  static schema = {
+    name: 'Section',
     properties: {
-      _id: 'objectId';
-      name: 'string';
-      type: 'string';
-      contentType: 'string';
-      thumbnailSrc: 'string?';
-      deadline: 'string?';
-      topic: 'Topic';
-    };
-    primaryKey: '_id';
+      _id: 'objectId',
+      name: 'string',
+      type: 'string?',
+      contentType: 'string',
+      src: 'string',
+      thumbnailSrc: 'string?',
+      deadline: 'date?',
+      topic_id: 'objectId',
+    },
+    primaryKey: '_id',
   };
 }

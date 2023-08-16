@@ -20,7 +20,6 @@ import {realmContext} from './RealmContext';
 import {appId, baseUrl} from '../atlasConfig.json';
 import tw from 'twrnc';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Block, Topic, Unit} from './Schemas';
 
 const App: React.FC = () => {
   return (
@@ -67,7 +66,6 @@ const MainApp: React.FC = () => {
 
   return (
     <RealmProvider
-      schema={[Unit, Block, Topic]}
       sync={{
         user: app.currentUser,
         flexible: true,

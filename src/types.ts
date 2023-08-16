@@ -1,5 +1,5 @@
 import {OnProgressData} from 'react-native-video';
-import {Topic, Unit} from './Schemas';
+import {Section, Topic, Unit} from './Schemas';
 
 export type RootStackParamList = {
   Units: {};
@@ -13,16 +13,6 @@ export type RootStackParamList = {
     onProgress: (data: OnProgressData) => void;
   };
 };
-
-export interface Section {
-  id: string;
-  name: string;
-  dateCreated?: Date;
-  dateModified?: Date;
-  type?: 'lecture' | 'assignment' | 'solution';
-  contentType: SectionContentTypes;
-  src: string;
-}
 
 export type SectionContentTypes =
   | 'video'
