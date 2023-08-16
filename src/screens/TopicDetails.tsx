@@ -90,7 +90,7 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
           keyExtractor={item => item._id.toString()}
           maxToRenderPerBatch={3}
           initialNumToRender={3}
-          contentContainerStyle={tw`flex-1 pb-8`}
+          contentContainerStyle={tw`pb-8`}
           ListEmptyComponent={
             <View style={tw`flex-1 justify-center items-center`}>
               <Text style={tw`text-slate-700 text-lg`}>{t('noSections')}</Text>

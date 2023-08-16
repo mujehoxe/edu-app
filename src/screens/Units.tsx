@@ -36,7 +36,7 @@ const Units: React.FC<UnitsProps> = ({navigation}) => {
           </View>
         )}
         keyExtractor={item => item._id.toString()}
-        contentContainerStyle={tw`flex-1 pb-8`}
+        contentContainerStyle={tw`pb-8`}
         ListEmptyComponent={
           <View style={tw`flex-1 justify-center items-center`}>
             <Text>{t('noUnits')}</Text>
