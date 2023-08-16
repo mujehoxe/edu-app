@@ -1,43 +1,30 @@
-import React, {useEffect, useState} from 'react';
-import {View, FlatList, Text, ActivityIndicator} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, FlatList, Text} from 'react-native';
 import tw from 'twrnc';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import UnitCard from '../components/UnitCard';
 import {useTranslation} from 'react-i18next';
-import firestore from '@react-native-firebase/firestore';
-import {Unit} from '../types';
+import {realmContext} from '../RealmContext';
+import {Unit} from '../Schemas';
 
 interface UnitsProps {
   navigation: NativeStackNavigationProp<any>;
 }
 
+const {useRealm, useQuery} = realmContext;
+
 const Units: React.FC<UnitsProps> = ({navigation}) => {
   const {t} = useTranslation();
 
-  const [units, setUnits] = useState<Unit[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const realm = useRealm();
+
+  const units = useQuery(Unit).sorted('number');
 
   useEffect(() => {
-    const subscriber = firestore()
-      .collection('Units')
-      .onSnapshot(querySnapshot => {
-        const loadedUnits: Unit[] = querySnapshot.docs.map(
-          documentSnapshot => ({
-            ...(documentSnapshot.data() as Unit),
-            id: documentSnapshot.id,
-          }),
-        );
-
-        setUnits(loadedUnits);
-        setIsLoading(false);
-      });
-
-    return () => subscriber();
-  }, []);
-
-  if (isLoading) {
-    return <ActivityIndicator size="large" style={tw`flex-1 justify-center`} />;
-  }
+    realm.subscriptions.update(mutableSubs => {
+      mutableSubs.add(realm.objects(Unit), {name: 'unitsSubscription'});
+    });
+  }, [realm]);
 
   return (
     <View style={tw`flex-1 bg-white`}>
@@ -48,7 +35,7 @@ const Units: React.FC<UnitsProps> = ({navigation}) => {
             <UnitCard unit={item} navigation={navigation} />
           </View>
         )}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => item._id.toString()}
         contentContainerStyle={tw`flex-1 pb-8`}
         ListEmptyComponent={
           <View style={tw`flex-1 justify-center items-center`}>

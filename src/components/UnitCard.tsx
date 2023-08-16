@@ -2,13 +2,13 @@ import React from 'react';
 import {View, Text, TouchableOpacity, I18nManager, Image} from 'react-native';
 import tw from 'twrnc';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {Unit} from '../types';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   XCircleIcon,
 } from 'react-native-heroicons/outline';
 import {useTranslation} from 'react-i18next';
+import {Unit} from '../Schemas';
 
 interface UnitProps {
   unit: Unit;
@@ -26,8 +26,8 @@ const UnitCard: React.FC<UnitProps> = ({unit, navigation}) => {
         navigation.navigate('UnitDetails', {unit});
       }}>
       <View style={tw`flex-row items-center flex-1`}>
-        {unit.icon ? (
-          <Image style={tw`w-14 h-14`} source={{uri: unit.icon}} />
+        {unit.iconSrc ? (
+          <Image style={tw`w-14 h-14`} source={{uri: unit.iconSrc}} />
         ) : (
           <XCircleIcon width={56} height={56} style={tw`text-black`} />
         )}

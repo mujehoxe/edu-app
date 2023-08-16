@@ -15,19 +15,17 @@ import Orientation from 'react-native-orientation-locker';
 import {clearCache} from 'react-native-video-cache-control';
 import {MainStackScreen} from './screens/MainStackScreen';
 import ConnectivityIndicator from './components/ConnectivityIndicator';
-import {AppProvider, UserProvider, useApp} from '@realm/react';
+import {AppProvider, useApp} from '@realm/react';
 import {realmContext} from './RealmContext';
 import {appId, baseUrl} from '../atlasConfig.json';
 import tw from 'twrnc';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Unit} from './Schemas';
+import {Block, Topic, Unit} from './Schemas';
 
 const App: React.FC = () => {
   return (
     <AppProvider id={appId} baseUrl={baseUrl}>
-      <UserProvider>
-        <MainApp />
-      </UserProvider>
+      <MainApp />
     </AppProvider>
   );
 };
@@ -46,8 +44,6 @@ export const RootStack = createNativeStackNavigator<RootStackParamList>();
 const {RealmProvider} = realmContext;
 
 const MainApp: React.FC = () => {
-  const app = useApp();
-
   useEffect(() => {
     clearCache();
     I18nManager.allowRTL(true);
@@ -56,18 +52,22 @@ const MainApp: React.FC = () => {
     SystemNavigationBar.setNavigationColor('#FFF', 'light');
     SystemNavigationBar.setNavigationBarDividerColor('#CACACA');
     Orientation.lockToPortrait();
-  }, [app]);
+  }, []);
+
+  const app = useApp();
 
   useEffect(() => {
     const login = async () => {
       const credentials = Realm.Credentials.anonymous();
-      const user = await app.logIn(credentials);
+      await app.logIn(credentials);
+      console.log(app.currentUser);
     };
     login();
   }, [app]);
 
   return (
     <RealmProvider
+      schema={[Unit, Block, Topic]}
       sync={{
         user: app.currentUser,
         flexible: true,
