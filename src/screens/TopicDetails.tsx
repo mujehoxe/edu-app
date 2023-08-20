@@ -38,7 +38,9 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
 
   const realm = useRealm();
 
-  const sections = useQuery(Section).filtered('topic_id == $0', topic._id);
+  const sections = useQuery(Section)
+    .filtered('topic_id == $0', topic._id)
+    .sorted('order');
 
   useEffect(() => {
     realm.subscriptions.update(mutableSubs => {

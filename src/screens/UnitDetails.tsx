@@ -25,7 +25,9 @@ const UnitDetails: React.FC<UnitDetailsProps> = ({route}) => {
 
   const realm = useRealm();
 
-  const blocks = useQuery(Block).filtered('unit_id == $0', unit._id);
+  const blocks = useQuery(Block)
+    .filtered('unit_id == $0', unit._id)
+    .sorted('order');
 
   useEffect(() => {
     realm.subscriptions.update(mutableSubs => {

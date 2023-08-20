@@ -17,7 +17,9 @@ const BlockCard: React.FC<BlockCardProps> = ({block}) => {
 
   const realm = useRealm();
 
-  const topics = useQuery(Topic).filtered('block_id == $0', block._id);
+  const topics = useQuery(Topic)
+    .filtered('block_id == $0', block._id)
+    .sorted('order');
 
   useEffect(() => {
     realm.subscriptions.update(mutableSubs => {

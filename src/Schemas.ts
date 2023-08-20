@@ -22,6 +22,7 @@ export class Unit extends Realm.Object<Unit> {
 export class Block extends Realm.Object<Block> {
   _id!: Realm.BSON.ObjectId;
   name!: string;
+  order!: number;
   unit_id!: Realm.BSON.ObjectId;
 
   static schema = {
@@ -29,6 +30,7 @@ export class Block extends Realm.Object<Block> {
     properties: {
       _id: 'objectId',
       name: 'string',
+      order: 'int',
       unit_id: 'objectId',
     },
     primaryKey: '_id',
@@ -38,6 +40,7 @@ export class Block extends Realm.Object<Block> {
 export class Topic extends Realm.Object<Topic> {
   _id!: Realm.BSON.ObjectId;
   name!: string;
+  order!: number;
   block_id!: Realm.BSON.ObjectId;
 
   static schema = {
@@ -45,6 +48,7 @@ export class Topic extends Realm.Object<Topic> {
     properties: {
       _id: 'objectId',
       name: 'string',
+      order: 'int',
       block_id: 'objectId',
     },
     primaryKey: '_id',
@@ -59,6 +63,7 @@ export class Section extends Realm.Object<Section> {
   src!: string;
   thumbnailSrc?: string;
   deadline?: Date;
+  order!: number;
   topic_id!: Realm.BSON.ObjectId;
 
   static schema = {
@@ -71,6 +76,7 @@ export class Section extends Realm.Object<Section> {
       src: 'string',
       thumbnailSrc: 'string?',
       deadline: 'date?',
+      order: 'int',
       topic_id: 'objectId',
     },
     primaryKey: '_id',
