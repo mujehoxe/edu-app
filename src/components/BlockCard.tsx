@@ -49,9 +49,9 @@ const BlockCard: React.FC<BlockCardProps> = ({block}) => {
         data={topics}
         renderItem={renderTopic}
         keyExtractor={item => item._id.toString()}
-        contentContainerStyle={tw`my-auto pb-8`}
+        contentContainerStyle={tw`my-autopb-8`}
         ListEmptyComponent={
-          <View style={tw`flex-1 justify-center items-center`}>
+          <View style={tw`my-6 flex-1 justify-center items-center`}>
             <Text>{t('noTopics')}</Text>
           </View>
         }
