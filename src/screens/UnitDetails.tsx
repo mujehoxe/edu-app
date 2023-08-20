@@ -45,7 +45,7 @@ const UnitDetails: React.FC<UnitDetailsProps> = ({route}) => {
         data={blocks}
         renderItem={renderBlock}
         keyExtractor={item => item._id.toString()}
-        contentContainerStyle={tw`pb-8`}
+        contentContainerStyle={tw`my-auto pb-8`}
         ListEmptyComponent={
           <View style={tw`flex-1 justify-center items-center`}>
             <Text style={tw`text-slate-700 text-lg`}>{t('noBlocks')}</Text>
