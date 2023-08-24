@@ -19,9 +19,11 @@ import {AppProvider, useApp} from '@realm/react';
 import {realmContext} from './RealmContext';
 import {appId, baseUrl} from '../atlasConfig.json';
 import tw from 'twrnc';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import useHideSplashScreen from './hooks/useHideSplashScreen';
+import {MainApp} from './MainApp';
 
 const App: React.FC = () => {
+  useHideSplashScreen();
   return (
     <AppProvider id={appId} baseUrl={baseUrl}>
       <MainApp />
@@ -31,9 +33,9 @@ const App: React.FC = () => {
 
 export default App;
 
-const LoadingIndicator = () => {
+export const LoadingIndicator = () => {
   return (
-    <View style={tw`flex-1 flex-row justify-around p-3`}>
+    <View style={tw`flex-1 flex-row bg-white justify-around p-3`}>
       <ActivityIndicator size="large" />
     </View>
   );

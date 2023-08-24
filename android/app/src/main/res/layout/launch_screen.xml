@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/phi"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:lottie_autoPlay="true"
+      app:lottie_loop="false"
+      app:lottie_colorFilter="@color/blue"
+      app:lottie_rawRes="@raw/phi"
+  />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/curve"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:lottie_autoPlay="true"
+      app:lottie_loop="false"
+      app:lottie_colorFilter="@color/blue"
+      app:lottie_rawRes="@raw/curve"
+  />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/logo"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:lottie_autoPlay="true"
+      app:lottie_loop="false"
+      app:lottie_colorFilter="@color/blue"
+      app:lottie_rawRes="@raw/logo"
+  />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:lottie_autoPlay="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading"
+  />
+
+</RelativeLayout>
