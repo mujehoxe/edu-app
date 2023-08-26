@@ -9,10 +9,9 @@ import {useApp} from '@realm/react';
 import tw from 'twrnc';
 import {WEB_CLIENT_ID} from '@env';
 
-GoogleSignin.configure({
-  webClientId: WEB_CLIENT_ID,
-  offlineAccess: true,
-});
+  GoogleSignin.configure({
+    webClientId: WEB_CLIENT_ID,
+  });
 
 export default function GoogleSignInButton() {
   const [isSigninInProgress, setSigninInProgress] = useState(false);
@@ -21,11 +20,8 @@ export default function GoogleSignInButton() {
   const signIn = async () => {
     setSigninInProgress(true);
     try {
-      await GoogleSignin.hasPlayServices();
-      const {serverAuthCode} = await GoogleSignin.signIn();
-      const credentials = Realm.Credentials.google({
-        authCode: serverAuthCode,
-      });
+      const {idToken} = await GoogleSignin.signIn();
+      const credentials = Realm.Credentials.google({idToken});
       await app.logIn(credentials);
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
