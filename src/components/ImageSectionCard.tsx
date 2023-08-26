@@ -1,6 +1,6 @@
 import React from 'react';
 import {SectionCardProps} from '../types';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import {View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 

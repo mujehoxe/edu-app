@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, I18nManager, Image} from 'react-native';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {
   ChevronLeftIcon,

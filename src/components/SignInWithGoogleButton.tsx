@@ -5,7 +5,7 @@ import {
 } from '@react-native-google-signin/google-signin';
 import Realm from 'realm';
 import {useApp} from '@realm/react';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import {WEB_CLIENT_ID} from '@env';
 
 export default function SignInWithGoogle() {

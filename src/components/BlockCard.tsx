@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {FlatList, Text, View} from 'react-native';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import TopicCard from './TopicCard';
 import {useTranslation} from 'react-i18next';
 import {Block, Topic} from '../Schemas';

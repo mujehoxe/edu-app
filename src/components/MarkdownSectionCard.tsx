@@ -1,7 +1,7 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
 import {SectionCardProps} from '../types';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import Markdown, {MarkdownIt} from '@ronradtke/react-native-markdown-display';
 import {Text, View} from 'react-native';
 import katexPlugin from '@ryanxcharles/markdown-it-katex';

@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {SectionCardProps} from '../types';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import Video, {OnProgressData} from 'react-native-video';
 import {TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';

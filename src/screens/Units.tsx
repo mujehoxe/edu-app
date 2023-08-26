@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {View, FlatList, Text} from 'react-native';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import UnitCard from '../components/UnitCard';
 import {useTranslation} from 'react-i18next';

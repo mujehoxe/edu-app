@@ -6,7 +6,7 @@ import {
 } from '../types';
 import ErrorComponent from './ErrorComponent';
 import {Text, View} from 'react-native';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import {useTranslation} from 'react-i18next';
 import ImageSectionCard from './ImageSectionCard';
 import MarkdownSectionCard from './MarkdownSectionCard';

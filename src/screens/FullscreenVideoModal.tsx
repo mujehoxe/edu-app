@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import Video from 'react-native-video';
 import {View} from 'react-native';
 import {RootStackParamList} from '../types';

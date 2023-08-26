@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
 import Pdf from 'react-native-pdf';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types';
 import {RouteProp} from '@react-navigation/native';

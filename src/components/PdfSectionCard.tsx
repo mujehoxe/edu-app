@@ -1,6 +1,6 @@
 import React from 'react';
 import {SectionCardProps} from '../types';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import {I18nManager, TouchableOpacity, View} from 'react-native';
 import {Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';

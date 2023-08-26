@@ -1,6 +1,6 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import {StatusBar, Text, View} from 'react-native';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import useGoogleOneTapSignIn from '../hooks/useGoogleOneTapSignIn';
 import SignInWithGoogle from '../components/SignInWithGoogleButton';
 

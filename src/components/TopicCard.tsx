@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import {Topic} from '../types';
 import {TopicDetailsScreenNavigationProp} from '../screens/TopicDetails';
 import {useNavigation} from '@react-navigation/native';

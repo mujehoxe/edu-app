@@ -1,6 +1,6 @@
 import React from 'react';
 import {ActivityIndicator, View} from 'react-native';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 
 export const LoadingIndicator = () => {
   return (

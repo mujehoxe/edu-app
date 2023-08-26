@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import tw from 'twrnc';
+import tw from '../../tailwind';
 import {Text, View} from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import {useTranslation} from 'react-i18next';
