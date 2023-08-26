@@ -8,12 +8,12 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import useI18n from './hooks/useI18n';
 import {LoadingIndicator} from './components/LoadingIndicator';
 import {realmContext} from './RealmContext';
-import {LogIn} from './screens/Login';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Orientation from 'react-native-orientation-locker';
 import {clearCache} from 'react-native-video-cache-control';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
+import useDayNightNavigationBar from './hooks/useDayNightNavigationBar';
 import {Login} from './screens/Login';
 
 const {RealmProvider} = realmContext;
@@ -23,9 +23,10 @@ export const MainApp: React.FC = () => {
 
   const app = useApp();
 
+  useDayNightNavigationBar();
+
   useEffect(() => {
     clearCache();
-    SystemNavigationBar.setNavigationColor('#FFF');
     SystemNavigationBar.setNavigationBarDividerColor('#CACACA');
     Orientation.lockToPortrait();
   }, [app]);

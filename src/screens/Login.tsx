@@ -1,26 +1,15 @@
-import React, {ReactElement, useEffect, useState} from 'react';
-import {StatusBar, Text, View} from 'react-native';
+import React, {ReactElement, useState} from 'react';
+import {Text, View} from 'react-native';
 import tw from '../../tailwind';
 import useGoogleOneTapSignIn from '../hooks/useGoogleOneTapSignIn';
 import SignInWithGoogle from '../components/SignInWithGoogleButton';
-import {useAppColorScheme} from 'twrnc';
-import SystemNavigationBar from 'react-native-system-navigation-bar';
+import useDayNightNavigationBar from '../hooks/useDayNightNavigationBar';
 
 export function Login(): ReactElement {
   const [isGoogleSignInButtonVisible, setIsGoogleSignInButtonVisible] =
     useState<boolean>(false);
 
-  const [colorScheme] = useAppColorScheme(tw);
-
-  useEffect(() => {
-    if (colorScheme === 'light') {
-      SystemNavigationBar.setNavigationColor('white');
-      StatusBar.setBarStyle('dark-content');
-    } else {
-      SystemNavigationBar.setNavigationColor('black');
-      StatusBar.setBarStyle('light-content');
-    }
-  }, [colorScheme]);
+  useDayNightNavigationBar();
 
   useGoogleOneTapSignIn(setIsGoogleSignInButtonVisible);
 
