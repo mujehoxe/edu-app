@@ -9,13 +9,13 @@ import {useApp} from '@realm/react';
 import tw from 'twrnc';
 import {WEB_CLIENT_ID} from '@env';
 
+export default function SignInWithGoogle() {
+  const [isSigninInProgress, setSigninInProgress] = useState(false);
+  const app = useApp();
+
   GoogleSignin.configure({
     webClientId: WEB_CLIENT_ID,
   });
-
-export default function GoogleSignInButton() {
-  const [isSigninInProgress, setSigninInProgress] = useState(false);
-  const app = useApp();
 
   const signIn = async () => {
     setSigninInProgress(true);
