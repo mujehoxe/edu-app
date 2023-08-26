@@ -20,6 +20,7 @@ export default function GoogleSignInButton() {
   const signIn = async () => {
     setSigninInProgress(true);
     try {
+      await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
       const {idToken} = await GoogleSignin.signIn();
       const credentials = Realm.Credentials.google({idToken});
       await app.logIn(credentials);
