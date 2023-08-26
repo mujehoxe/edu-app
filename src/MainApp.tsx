@@ -6,7 +6,7 @@ import ConnectivityIndicator from './components/ConnectivityIndicator';
 import {UserProvider, useApp} from '@realm/react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import useI18n from './hooks/useI18n';
-import {LoadingIndicator} from './App';
+import {LoadingIndicator} from './components/LoadingIndicator';
 import {realmContext} from './RealmContext';
 import {LogIn} from './screens/Login';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
