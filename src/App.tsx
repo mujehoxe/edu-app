@@ -10,6 +10,7 @@ import {MainApp} from './MainApp';
 
 const App: React.FC = () => {
   useHideSplashScreen();
+
   return (
     <AppProvider id={appId} baseUrl={baseUrl}>
       <MainApp />
