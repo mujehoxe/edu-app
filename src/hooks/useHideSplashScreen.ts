@@ -15,7 +15,7 @@ const useHideSplashScreen = () => {
         }, splashTime - launchingTime);
       }
     }).observe({type: 'react-native-mark', buffered: true});
-  });
+  }, []);
 };
 
 export default useHideSplashScreen;

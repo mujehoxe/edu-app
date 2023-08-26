@@ -24,7 +24,7 @@ const useI18n = () => {
     I18nManager.allowRTL(true);
     I18nManager.forceRTL(true);
     !I18nManager.isRTL && RNRestart.restart();
-  });
+  }, []);
 };
 
 export default useI18n;
