@@ -1,6 +1,4 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {RootStackParamList} from './types';
 import {ActivityIndicator, View} from 'react-native';
 import {AppProvider} from '@realm/react';
 import {appId, baseUrl} from '../atlasConfig.json';
@@ -27,5 +25,3 @@ export const LoadingIndicator = () => {
     </View>
   );
 };
-
-export const RootStack = createNativeStackNavigator<RootStackParamList>();

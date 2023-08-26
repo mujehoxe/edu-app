@@ -6,12 +6,14 @@ import ConnectivityIndicator from './components/ConnectivityIndicator';
 import {UserProvider, useApp} from '@realm/react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import useI18n from './hooks/useI18n';
-import {LoadingIndicator, RootStack} from './App';
+import {LoadingIndicator} from './App';
 import {realmContext} from './RealmContext';
 import {LogIn} from './screens/Login';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Orientation from 'react-native-orientation-locker';
 import {clearCache} from 'react-native-video-cache-control';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {RootStackParamList} from './types';
 
 const {RealmProvider} = realmContext;
 
@@ -60,3 +62,5 @@ export const MainApp: React.FC = () => {
     </UserProvider>
   );
 };
+
+export const RootStack = createNativeStackNavigator<RootStackParamList>();

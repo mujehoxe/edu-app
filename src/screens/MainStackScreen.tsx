@@ -5,7 +5,7 @@ import UnitDetails from './UnitDetails';
 import TopicDetails from './TopicDetails';
 import PdfView from './PdfView';
 import {useTranslation} from 'react-i18next';
-import {RootStack} from '../App';
+import {RootStack} from '../MainApp';
 
 const MainStack = createNativeStackNavigator();
 export const MainStackScreen: React.FC = () => {
