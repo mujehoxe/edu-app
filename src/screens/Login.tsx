@@ -6,7 +6,7 @@ import SignInWithGoogle from '../components/SignInWithGoogleButton';
 import {useAppColorScheme} from 'twrnc';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 
-export function LogIn(): ReactElement {
+export function Login(): ReactElement {
   const [isGoogleSignInButtonVisible, setIsGoogleSignInButtonVisible] =
     useState<boolean>(false);
 

@@ -14,6 +14,7 @@ import Orientation from 'react-native-orientation-locker';
 import {clearCache} from 'react-native-video-cache-control';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
+import {Login} from './screens/Login';
 
 const {RealmProvider} = realmContext;
 
@@ -30,7 +31,7 @@ export const MainApp: React.FC = () => {
   }, [app]);
 
   return (
-    <UserProvider fallback={LogIn}>
+    <UserProvider fallback={Login}>
       <RealmProvider
         sync={{
           flexible: true,
