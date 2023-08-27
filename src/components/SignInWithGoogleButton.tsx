@@ -1,42 +1,84 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   GoogleSignin,
   GoogleSigninButton,
+  User as GoogleButtonSigninUser,
 } from '@react-native-google-signin/google-signin';
+import {
+  GoogleOneTapSignIn,
+  User as GoogleOneTapSignInUser,
+} from 'react-native-google-one-tap-signin';
 import Realm from 'realm';
 import {useApp} from '@realm/react';
 import tw from '../../tailwind';
 import {WEB_CLIENT_ID} from '@env';
+import {View} from 'react-native';
+import {useAppColorScheme} from 'twrnc';
+
+interface AuthProvider {
+  configure: (config: {webClientId: string}) => void;
+  hasPlayServices: (options: {
+    showPlayServicesUpdateDialog: boolean;
+  }) => Promise<boolean>;
+  signIn: () => Promise<GoogleButtonSigninUser | GoogleOneTapSignInUser>;
+}
 
 export default function SignInWithGoogle() {
-  const [isSigninInProgress, setSigninInProgress] = useState(false);
+  const [isGoogleSignInButtonVisible, setIsGoogleSignInButtonVisible] =
+    useState<boolean>(false);
+
   const app = useApp();
 
-  GoogleSignin.configure({
-    webClientId: WEB_CLIENT_ID,
-  });
+  const authenticate = useCallback(
+    async (authProvider: AuthProvider) => {
+      authProvider.configure({
+        webClientId: WEB_CLIENT_ID,
+      });
 
-  const signIn = async () => {
-    setSigninInProgress(true);
-    try {
-      await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-      const {idToken} = await GoogleSignin.signIn();
+      await authProvider.hasPlayServices({showPlayServicesUpdateDialog: true});
+      const {idToken} = await authProvider.signIn();
       const credentials = Realm.Credentials.google({idToken});
       await app.logIn(credentials);
+    },
+    [app],
+  );
+
+  useEffect(() => {
+    const signIn = async () => {
+      try {
+        await authenticate(GoogleOneTapSignIn);
+      } catch (error: any) {
+        setIsGoogleSignInButtonVisible(true);
+        console.error(error);
+      }
+    };
+    signIn();
+  }, [authenticate]);
+
+  const signIn = async () => {
+    setIsGoogleSignInButtonVisible(false);
+    try {
+      await authenticate(GoogleSignin);
     } catch (error: any) {
       console.error(error);
-    } finally {
-      setSigninInProgress(false);
     }
+    setIsGoogleSignInButtonVisible(true);
   };
 
+  const [colorScheme] = useAppColorScheme(tw);
+
   return (
-    <GoogleSigninButton
-      style={tw`h-18`}
-      size={GoogleSigninButton.Size.Wide}
-      color={GoogleSigninButton.Color.Light}
-      onPress={signIn}
-      disabled={isSigninInProgress}
-    />
+    <View style={isGoogleSignInButtonVisible ? tw`` : tw`opacity-0`}>
+      <GoogleSigninButton
+        style={tw`h-18`}
+        size={GoogleSigninButton.Size.Wide}
+        color={
+          colorScheme === 'light'
+            ? GoogleSigninButton.Color.Light
+            : GoogleSigninButton.Color.Dark
+        }
+        onPress={signIn}
+      />
+    </View>
   );
 }
