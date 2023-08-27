@@ -52,8 +52,8 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
       );
     });
     navigation.setOptions({
-      headerStyle: tw`bg-[#2196F3]`,
-      headerTitleStyle: tw`text-[#FFF]`,
+      headerStyle: tw`bg-primary`,
+      headerTitleStyle: tw`text-white`,
       headerTintColor: 'white',
     });
   }, [realm, topic, navigation]);
