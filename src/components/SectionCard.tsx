@@ -51,8 +51,10 @@ const SectionCard: React.FC<SectionCardProps> = ({
         onPress={onPress}
       />
       {assignmentSection.deadline && (
-        <View style={tw`p-4 bg-red-100 border-t border-gray-300 rounded-b-md`}>
-          <Text style={tw`text-right text-red-600 text-base font-semibold`}>
+        <View
+          style={tw`p-4 bg-red-100 dark:bg-red-800 border-gray-300 rounded-b-md`}>
+          <Text
+            style={tw`text-right text-red-600 dark:text-red-100 text-base font-semibold`}>
             {t('deadline') + formatter.format(assignmentSection.deadline)}
           </Text>
         </View>
