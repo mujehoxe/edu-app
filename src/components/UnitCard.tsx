@@ -23,8 +23,7 @@ const UnitCard: React.FC<UnitProps> = ({unit, navigation}) => {
     <TouchableOpacity
       style={tw`
         flex-row items-center p-4 rounded-md
-        border-b border-gray-300 dark:border-gray-500
-        bg-white dark:bg-black shadow-md`}
+        border-b border-gray-300 dark:border-gray-500`}
       onPress={() => {
         navigation.navigate('UnitDetails', {unit});
       }}>
