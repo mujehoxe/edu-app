@@ -12,8 +12,7 @@ import Realm from 'realm';
 import {useApp} from '@realm/react';
 import tw from '../../tailwind';
 import {WEB_CLIENT_ID} from '@env';
-import {View} from 'react-native';
-import {useAppColorScheme} from 'twrnc';
+import {View, useColorScheme} from 'react-native';
 
 interface AuthProvider {
   configure: (config: {webClientId: string}) => void;
@@ -65,7 +64,7 @@ export default function SignInWithGoogle() {
     setIsGoogleSignInButtonVisible(true);
   };
 
-  const [colorScheme] = useAppColorScheme(tw);
+  const colorScheme = useColorScheme();
 
   return (
     <View style={isGoogleSignInButtonVisible ? tw`` : tw`opacity-0`}>
