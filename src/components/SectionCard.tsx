@@ -36,9 +36,12 @@ const SectionCard: React.FC<SectionCardProps> = ({
   const assignmentSection = section as AssignmentSection;
 
   return (
-    <View style={tw`bg-white shadow-md rounded-md mb-4`}>
-      <View style={tw`bg-gray-100 p-4 border-b border-gray-300 rounded-t-md`}>
-        <Text style={tw`text-lg font-semibold text-slate-900`}>
+    <View
+      style={tw`bg-white dark:bg-slate-800 shadow-md rounded-md mb-4 overflow-hidden`}>
+      <View
+        style={tw`bg-gray-100 dark:bg-slate-700 p-4 border-b border-gray-300 rounded-t-md`}>
+        <Text
+          style={tw`text-lg font-semibold text-slate-900 dark:text-slate-100`}>
           {section.name}
         </Text>
       </View>
