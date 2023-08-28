@@ -83,7 +83,7 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
   );
 
   return (
-    <View style={tw`flex-1 bg-white`}>
+    <View style={tw`flex-1 bg-white dark:bg-black`}>
       <StatusBar backgroundColor="#2196F3" barStyle={'light-content'} />
       <SafeAreaView style={tw`flex-1`}>
         <FlatList
@@ -92,10 +92,12 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
           keyExtractor={item => item._id.toString()}
           maxToRenderPerBatch={3}
           initialNumToRender={3}
-          contentContainerStyle={tw`pb-8`}
+          contentContainerStyle={tw`pt-4`}
           ListEmptyComponent={
             <View style={tw`my-6 flex-1 justify-center items-center`}>
-              <Text style={tw`text-slate-700 text-lg`}>{t('noSections')}</Text>
+              <Text style={tw`text-slate-700 dark:text-slate-100 text-lg`}>
+                {t('noSections')}
+              </Text>
             </View>
           }
         />
