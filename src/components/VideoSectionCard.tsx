@@ -72,7 +72,8 @@ const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
         </View>
       )}
 
-      <View style={tw`absolute bottom-2 left-2`}>
+      <View
+        style={tw`absolute rounded-md bg-slate-600 bg-opacity-40 bottom-2 left-2`}>
         <ArrowsPointingOutIcon
           width={28}
           height={28}
