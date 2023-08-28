@@ -1,5 +1,10 @@
 import React, {useEffect} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
+  Theme,
+} from '@react-navigation/native';
 import FullscreenVideoModal from './screens/FullscreenVideoModal';
 import {MainStackScreen} from './screens/MainStackScreen';
 import ConnectivityIndicator from './components/ConnectivityIndicator';
@@ -15,6 +20,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
 import useDayNightNavigationBar from './hooks/useDayNightNavigationBar';
 import {Login} from './screens/Login';
+import {useColorScheme} from 'react-native';
+import tw from '../tailwind';
 
 const {RealmProvider} = realmContext;
 
@@ -31,6 +38,16 @@ export const MainApp: React.FC = () => {
     Orientation.lockToPortrait();
   }, [app]);
 
+  const scheme = useColorScheme();
+
+  const DarkNavigationHeader: Theme = {
+    ...DarkTheme,
+    colors: {
+      ...DarkTheme.colors,
+      card: tw.color('black') || DarkTheme.colors.card,
+    },
+  };
+
   return (
     <UserProvider fallback={Login}>
       <RealmProvider
@@ -42,7 +59,8 @@ export const MainApp: React.FC = () => {
         }}
         fallback={LoadingIndicator}>
         <SafeAreaProvider>
-          <NavigationContainer>
+          <NavigationContainer
+            theme={scheme === 'dark' ? DarkNavigationHeader : DefaultTheme}>
             <RootStack.Navigator
               initialRouteName="Units"
               screenOptions={{presentation: 'modal'}}>
