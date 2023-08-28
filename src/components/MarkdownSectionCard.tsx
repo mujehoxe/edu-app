@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {SectionCardProps} from '../types';
 import tw from '../../tailwind';
 import Markdown, {MarkdownIt} from '@ronradtke/react-native-markdown-display';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View, useColorScheme} from 'react-native';
 import katexPlugin from '@ryanxcharles/markdown-it-katex';
 import MathView from 'react-native-math-view';
 
@@ -36,11 +36,13 @@ const MarkdownSectionCard: React.FC<SectionCardProps> = ({section}) => {
     }
   };
 
+  const colorScheme = useColorScheme();
+
   return (
-    <View style={tw`bg-slate-100 shadow-md rounded-md mb-4 p-4`}>
+    <View style={tw`bg-slate-100 dark:bg-transparent rounded-md p-4`}>
       {markdownContent !== null ? (
         <Markdown
-          style={markdownStyles}
+          style={colorScheme === 'light' ? markdownStyles : darkMarkdownStyles}
           markdownit={markdownItInstance}
           rules={{
             // eslint-disable-next-line react/no-unstable-nested-components
@@ -67,7 +69,8 @@ const MarkdownSectionCard: React.FC<SectionCardProps> = ({section}) => {
 
 export default MarkdownSectionCard;
 
-const markdownStyles = {
+const markdownStyles: StyleSheet.NamedStyles<any> = {
+  body: tw`bg-transparent`,
   text: tw`text-slate-900 text-base`, // Adjust font size and color for better readability
   strong: tw`font-semibold`,
   em: tw`italic`,
@@ -82,10 +85,21 @@ const markdownStyles = {
   list_unordered: tw`pl-8`, // Add extra padding to the left of unordered lists
   list_ordered: tw`pl-8`, // Add extra padding to the left of ordered lists
   link: tw`text-blue-500 underline`, // Style links with blue color and underline
-  blockquote: tw`border-l-4 border-blue-500 pl-4 italic my-4`, // Add a border to blockquotes and style it
+  blockquote: tw`border-l-4 border-blue-500 pl-4 italic my-4 bg-slate-200`, // Add a border to blockquotes and style it
   code_block: tw`text-slate-900 text-base`,
   code_inline: tw`text-slate-900 text-base`,
   math_inline: tw`text-slate-900 text-base -mb-3`,
   math_block: tw`text-slate-900 text-base my-2`,
   hr: tw`border-t border-gray-300 my-4`, // Add a horizontal line with gray color
+};
+
+const darkMarkdownStyles = {
+  ...markdownStyles,
+  text: tw`text-slate-100 text-base`, // Adjust font size and color for better readability
+  link: tw`text-blue-500 underline`, // Style links with blue color and underline
+  blockquote: tw`border-l-4 border-blue-500 pl-4 italic my-4 bg-slate-600`, // Add a border to blockquotes and style it
+  code_block: tw`text-slate-100 text-base`,
+  code_inline: tw`text-slate-100 text-base`,
+  math_inline: tw`text-slate-100 text-base -mb-3`,
+  math_block: tw`text-slate-100 text-base my-2`,
 };
