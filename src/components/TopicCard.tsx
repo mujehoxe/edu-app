@@ -14,11 +14,13 @@ const TopicComponent: React.FC<TopicProps> = ({topic}) => {
 
   return (
     <TouchableOpacity
-      style={tw`px-4 py-2  bg-white`}
+      style={tw`px-4 py-2`}
       onPress={() => navigation.navigate('TopicDetails', {topic})}>
       <View style={tw`flex-row items-center`}>
         <Text
-          style={tw`text-sm text-slate-600 border-b border-slate-200 font-semibold flex-1`}>
+          style={tw`flex-1 text-sm font-semibold border-b
+            text-gray-600 dark:text-slate-300
+            border-gray-200 dark:border-slate-500`}>
           {topic.name}
         </Text>
       </View>

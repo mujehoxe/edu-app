@@ -42,7 +42,7 @@ const UnitDetails: React.FC<UnitDetailsProps> = ({route}) => {
   );
 
   return (
-    <View style={tw`flex-1 bg-white`}>
+    <View style={tw`flex-1 bg-white dark:bg-black`}>
       <FlatList
         data={blocks}
         renderItem={renderBlock}

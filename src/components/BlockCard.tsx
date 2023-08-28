@@ -39,9 +39,11 @@ const BlockCard: React.FC<BlockCardProps> = ({block}) => {
   );
 
   return (
-    <View style={tw`bg-white shadow-md rounded-md`}>
-      <View style={tw`bg-gray-100 p-4 border-b border-gray-300 rounded-t-md`}>
-        <Text style={tw`text-lg font-semibold text-slate-900`}>
+    <View style={tw`bg-white dark:bg-slate-800 shadow-md rounded-md`}>
+      <View
+        style={tw`bg-gray-50 dark:bg-slate-700 p-4 border-b border-gray-300 rounded-t-md`}>
+        <Text
+          style={tw`text-lg font-semibold text-slate-900 dark:text-slate-100`}>
           {block.name}
         </Text>
       </View>
