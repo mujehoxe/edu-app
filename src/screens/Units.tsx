@@ -27,7 +27,7 @@ const Units: React.FC<UnitsProps> = ({navigation}) => {
   }, [realm]);
 
   return (
-    <View style={tw`flex-1 bg-white`}>
+    <View style={tw`flex-1 bg-white dark:bg-black mt-2`}>
       <FlatList
         data={units}
         renderItem={({item}) => (
