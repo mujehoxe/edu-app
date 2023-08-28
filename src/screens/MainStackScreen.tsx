@@ -6,14 +6,22 @@ import TopicDetails from './TopicDetails';
 import PdfView from './PdfView';
 import {useTranslation} from 'react-i18next';
 import {RootStack} from '../MainApp';
+import {ColorSchemeSwitch} from '../components/ColorSchemeSwitch';
 
 const MainStack = createNativeStackNavigator();
 export const MainStackScreen: React.FC = () => {
   const {t} = useTranslation();
 
+  const renderSwitch = React.useMemo(() => <ColorSchemeSwitch />, []);
+
   return (
     <MainStack.Navigator>
-      <RootStack.Screen name="Units" options={{title: t('unitsTitle')}}>
+      <RootStack.Screen
+        name="Units"
+        options={{
+          title: t('unitsTitle'),
+          headerRight: () => renderSwitch,
+        }}>
         {({navigation}) => <Units navigation={navigation} />}
       </RootStack.Screen>
       <RootStack.Screen
