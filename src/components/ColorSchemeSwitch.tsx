@@ -15,7 +15,7 @@ export const ColorSchemeSwitch = () => {
   return (
     <TouchableOpacity
       onPress={toggleColorScheme}
-      style={tw`bg-opacity-15 p-2 rounded-full bg-black dark:bg-white`}>
+      style={tw`p-2 rounded-full bg-gray-100 dark:bg-slate-700`}>
       {colorScheme === 'light' ? (
         <MoonIcon style={tw`text-slate-900`} />
       ) : (
