@@ -2,11 +2,8 @@ import React, {ReactElement} from 'react';
 import {Text, View} from 'react-native';
 import tw from '../../tailwind';
 import SignInWithGoogle from '../components/SignInWithGoogleButton';
-import useDayNightNavigationBar from '../hooks/useDayNightNavigationBar';
 
 export function Login(): ReactElement {
-  useDayNightNavigationBar();
-
   return (
     <View style={tw`flex-1 justify-center items-center bg-white dark:bg-black`}>
       <Text style={tw`text-3xl font-bold text-primary mb-2`}>
