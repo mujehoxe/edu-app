@@ -21,10 +21,7 @@ const Units: React.FC<UnitsProps> = ({navigation}) => {
   const units = useQuery(Unit).sorted('number');
 
   useEffect(() => {
-    realm.subscriptions.update(mutableSubs => {
-      mutableSubs.add(realm.objects(Unit), {name: 'unitsSubscription'});
-    });
-  }, [realm]);
+  useDeviceContext(tw);
 
   return (
     <View style={tw`flex-1 bg-white dark:bg-black pt-4`}>
