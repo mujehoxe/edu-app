@@ -8,8 +8,7 @@ import {
   GoogleOneTapSignIn,
   User as GoogleOneTapSignInUser,
 } from 'react-native-google-one-tap-signin';
-import Realm from 'realm';
-import {useApp} from '@realm/react';
+import auth from '@react-native-firebase/auth';
 import tw from '../../tailwind';
 import {WEB_CLIENT_ID} from '@env';
 import {View, useColorScheme} from 'react-native';
@@ -26,21 +25,17 @@ export default function SignInWithGoogle() {
   const [isGoogleSignInButtonVisible, setIsGoogleSignInButtonVisible] =
     useState<boolean>(false);
 
-  const app = useApp();
+  const authenticate = useCallback(async (authProvider: AuthProvider) => {
+    authProvider.configure({
+      webClientId: WEB_CLIENT_ID,
+    });
 
-  const authenticate = useCallback(
-    async (authProvider: AuthProvider) => {
-      authProvider.configure({
-        webClientId: WEB_CLIENT_ID,
-      });
+    await authProvider.hasPlayServices({showPlayServicesUpdateDialog: true});
+    const {idToken} = await authProvider.signIn();
 
-      await authProvider.hasPlayServices({showPlayServicesUpdateDialog: true});
-      const {idToken} = await authProvider.signIn();
-      const credentials = Realm.Credentials.google({idToken});
-      await app.logIn(credentials);
-    },
-    [app],
-  );
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    return auth().signInWithCredential(googleCredential);
+  }, []);
 
   useEffect(() => {
     const signIn = async () => {

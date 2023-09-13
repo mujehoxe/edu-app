@@ -8,11 +8,8 @@ import {
 import FullscreenVideoModal from './screens/FullscreenVideoModal';
 import {MainStackScreen} from './screens/MainStackScreen';
 import ConnectivityIndicator from './components/ConnectivityIndicator';
-import {UserProvider, useApp} from '@realm/react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import useI18n from './hooks/useI18n';
-import {LoadingIndicator} from './components/LoadingIndicator';
-import {realmContext} from './RealmContext';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Orientation from 'react-native-orientation-locker';
 import {clearCache} from 'react-native-video-cache-control';
@@ -23,12 +20,8 @@ import {Login} from './screens/Login';
 import {useColorScheme} from 'react-native';
 import tw from '../tailwind';
 
-const {RealmProvider} = realmContext;
-
 export const MainApp: React.FC = () => {
   useI18n();
-
-  const app = useApp();
 
   useDayNightNavigationBar();
 
@@ -36,7 +29,7 @@ export const MainApp: React.FC = () => {
     clearCache();
     SystemNavigationBar.setNavigationBarDividerColor('#CACACA');
     Orientation.lockToPortrait();
-  }, [app]);
+  }, []);
 
   const scheme = useColorScheme();
 
@@ -49,37 +42,26 @@ export const MainApp: React.FC = () => {
   };
 
   return (
-    <UserProvider fallback={Login}>
-      <RealmProvider
-        sync={{
-          flexible: true,
-          onError: (_, error) => {
-            console.error(error);
-          },
-        }}
-        fallback={LoadingIndicator}>
-        <SafeAreaProvider>
-          <NavigationContainer
-            theme={scheme === 'dark' ? DarkNavigationHeader : DefaultTheme}>
-            <RootStack.Navigator
-              initialRouteName="Units"
-              screenOptions={{presentation: 'modal'}}>
-              <RootStack.Screen
-                name="Main"
-                component={MainStackScreen}
-                options={{headerShown: false}}
-              />
-              <RootStack.Screen
-                name="FullscreenVideoModal"
-                component={FullscreenVideoModal}
-                options={{title: '', headerTransparent: true}}
-              />
-            </RootStack.Navigator>
-            <ConnectivityIndicator />
-          </NavigationContainer>
-        </SafeAreaProvider>
-      </RealmProvider>
-    </UserProvider>
+    <SafeAreaProvider>
+      <NavigationContainer
+        theme={scheme === 'dark' ? DarkNavigationHeader : DefaultTheme}>
+        <RootStack.Navigator
+          initialRouteName="Units"
+          screenOptions={{presentation: 'modal'}}>
+          <RootStack.Screen
+            name="Main"
+            component={MainStackScreen}
+            options={{headerShown: false}}
+          />
+          <RootStack.Screen
+            name="FullscreenVideoModal"
+            component={FullscreenVideoModal}
+            options={{title: '', headerTransparent: true}}
+          />
+        </RootStack.Navigator>
+        <ConnectivityIndicator />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 
