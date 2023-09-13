@@ -32,6 +32,16 @@ export interface Topic {
   sections?: Section[];
 }
 
+export interface Section {
+  id: string;
+  name: string;
+  dateCreated?: Date;
+  dateModified?: Date;
+  type?: 'lecture' | 'assignment' | 'solution';
+  contentType: SectionContentTypes;
+  src: string;
+}
+
 export type SectionContentTypes =
   | 'video'
   | 'markdown'

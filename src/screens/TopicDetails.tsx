@@ -10,12 +10,13 @@ import {
 import tw from '../../tailwind';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../types';
+import {AssignmentSection, RootStackParamList, Section} from '../types';
 import SectionCard from '../components/SectionCard';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
-import {Section} from '../Schemas';
-import {realmContext} from '../RealmContext';
+import {VideoSection} from '../components/VideoSectionCard';
+import firestore from '@react-native-firebase/firestore';
+import {LoadingIndicator} from '../components/LoadingIndicator';
 
 export type TopicDetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -29,34 +30,46 @@ interface TopicDetailsProps
   route: TopicDetailsRouteProp;
 }
 
-const {useRealm, useQuery} = realmContext;
-
 const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
   const {t} = useTranslation();
 
   const {topic} = route.params;
 
-  const realm = useRealm();
-
-  const sections = useQuery(Section)
-    .filtered('topic_id == $0', topic._id)
-    .sorted('order');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    realm.subscriptions.update(mutableSubs => {
-      mutableSubs.add(
-        realm.objects(Section).filtered('topic_id == $0', topic._id),
-        {
-          name: 'sectionsSubscription' + topic._id.toString(),
-        },
-      );
-    });
+    const subscriber = firestore()
+      .collection('Sections')
+      .where('topicId', '==', topic.id)
+      .orderBy('order')
+      .onSnapshot(querySnapshot => {
+        const loadedSections: Section[] = querySnapshot.docs.map(
+          documentSnapshot => {
+            return {
+              ...(documentSnapshot.data() as Section),
+              id: documentSnapshot.id,
+            };
+          },
+        );
+
+        setSections(loadedSections);
+        setIsLoading(false);
+      });
+
+    return () => subscriber();
+  }, [topic]);
+
+  const [sections, setSections] = useState<
+    (Section | VideoSection | AssignmentSection)[]
+  >([]);
+
+  useEffect(() => {
     navigation.setOptions({
       headerStyle: tw`bg-primary`,
       headerTitleStyle: tw`text-white`,
       headerTintColor: 'white',
     });
-  }, [realm, topic, navigation]);
+  }, [navigation]);
 
   const [currentPlayingVideoIndex, setCurrentVideoIndex] = useState(-1);
 
@@ -82,6 +95,10 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
     />
   );
 
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
   return (
     <View style={tw`flex-1 bg-white dark:bg-black`}>
       <StatusBar backgroundColor="#2196F3" barStyle={'light-content'} />
@@ -89,7 +106,7 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
         <FlatList
           data={sections}
           renderItem={renderSection}
-          keyExtractor={item => item._id.toString()}
+          keyExtractor={item => item.id.toString()}
           maxToRenderPerBatch={3}
           initialNumToRender={3}
           contentContainerStyle={tw`pt-4`}
