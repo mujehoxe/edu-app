@@ -16,7 +16,6 @@ import {clearCache} from 'react-native-video-cache-control';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
 import useDayNightNavigationBar from './hooks/useDayNightNavigationBar';
-import {Login} from './screens/Login';
 import {useColorScheme} from 'react-native';
 import tw from '../tailwind';
 
