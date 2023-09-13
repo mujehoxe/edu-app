@@ -1,27 +1,47 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, FlatList, Text} from 'react-native';
 import tw from '../../tailwind';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import UnitCard from '../components/UnitCard';
 import {useTranslation} from 'react-i18next';
-import {realmContext} from '../RealmContext';
-import {Unit} from '../Schemas';
+import {useDeviceContext} from 'twrnc';
+import {LoadingIndicator} from '../components/LoadingIndicator';
+import firestore from '@react-native-firebase/firestore';
+import {Unit} from '../types';
 
 interface UnitsProps {
   navigation: NativeStackNavigationProp<any>;
 }
 
-const {useRealm, useQuery} = realmContext;
-
 const Units: React.FC<UnitsProps> = ({navigation}) => {
   const {t} = useTranslation();
 
-  const realm = useRealm();
-
-  const units = useQuery(Unit).sorted('number');
+  const [units, setUnits] = useState<Unit[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const subscriber = firestore()
+      .collection('Units')
+      .orderBy('number')
+      .onSnapshot(querySnapshot => {
+        setUnits(
+          querySnapshot.docs.map(documentSnapshot => ({
+            ...(documentSnapshot.data() as Unit),
+            id: documentSnapshot.id,
+          })),
+        );
+
+        setIsLoading(false);
+      });
+
+    return () => subscriber();
+  }, []);
+
   useDeviceContext(tw);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <View style={tw`flex-1 bg-white dark:bg-black pt-4`}>
@@ -32,7 +52,7 @@ const Units: React.FC<UnitsProps> = ({navigation}) => {
             <UnitCard unit={item} navigation={navigation} />
           </View>
         )}
-        keyExtractor={item => item._id.toString()}
+        keyExtractor={item => item.id.toString()}
         contentContainerStyle={tw`pb-8`}
         ListEmptyComponent={
           <View style={tw`my-6 flex-1 justify-center items-center`}>

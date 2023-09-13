@@ -1,5 +1,4 @@
 import {OnProgressData} from 'react-native-video';
-import {Section, Topic, Unit} from './Schemas';
 
 export type RootStackParamList = {
   Units: {};
@@ -13,6 +12,25 @@ export type RootStackParamList = {
     onProgress: (data: OnProgressData) => void;
   };
 };
+
+export interface Unit {
+  id: string;
+  number: number;
+  name: string;
+  iconSrc?: string;
+}
+
+export interface Block {
+  id: string;
+  name: string;
+  topics: Topic[];
+}
+
+export interface Topic {
+  id: string;
+  name: string;
+  sections?: Section[];
+}
 
 export type SectionContentTypes =
   | 'video'

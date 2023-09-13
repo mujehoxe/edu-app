@@ -8,7 +8,7 @@ import {
   XCircleIcon,
 } from 'react-native-heroicons/outline';
 import {useTranslation} from 'react-i18next';
-import {Unit} from '../Schemas';
+import {Unit} from '../types';
 
 interface UnitProps {
   unit: Unit;
