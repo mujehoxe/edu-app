@@ -6,7 +6,6 @@ import {RootStackParamList} from '../types';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import convertToProxyURL from 'react-native-video-cache-control';
 import useImmersiveLandscape from '../hooks/useImmersiveLandscape';
 
 export type FullscreenVideoModalNavigationProp = StackNavigationProp<
@@ -34,7 +33,7 @@ const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({route}) => {
     <View style={tw`bg-black w-full h-full`}>
       <Video
         ref={modalVideoRef}
-        source={{uri: convertToProxyURL({url: src})}}
+        source={{uri: src}}
         style={tw`bg-black h-full absolute inset-0`}
         paused={paused}
         onLoad={() => modalVideoRef.current?.seek(currentPlaybackTime)}

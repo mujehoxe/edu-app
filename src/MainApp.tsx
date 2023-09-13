@@ -12,7 +12,6 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import useI18n from './hooks/useI18n';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import Orientation from 'react-native-orientation-locker';
-import {clearCache} from 'react-native-video-cache-control';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
 import useDayNightNavigationBar from './hooks/useDayNightNavigationBar';
@@ -25,7 +24,6 @@ export const MainApp: React.FC = () => {
   useDayNightNavigationBar();
 
   useEffect(() => {
-    clearCache();
     SystemNavigationBar.setNavigationBarDividerColor('#CACACA');
     Orientation.lockToPortrait();
   }, []);

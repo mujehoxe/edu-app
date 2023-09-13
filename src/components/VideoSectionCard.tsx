@@ -7,7 +7,6 @@ import FastImage from 'react-native-fast-image';
 import {Section} from '../types';
 import {useNavigation} from '@react-navigation/native';
 import {FullscreenVideoModalNavigationProp} from '../screens/FullscreenVideoModal';
-import convertToProxyURL from 'react-native-video-cache-control';
 import {PlayIcon} from 'react-native-heroicons/outline';
 import {ArrowsPointingOutIcon} from 'react-native-heroicons/solid';
 
@@ -50,7 +49,7 @@ const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
 
       <Video
         ref={videoRef}
-        source={{uri: convertToProxyURL({url: section.src})}}
+        source={{uri: section.src}}
         style={tw`absolute w-full h-72`}
         paused={!isPlaying}
         resizeMode="cover"

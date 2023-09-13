@@ -49,7 +49,6 @@
     "react-native-system-navigation-bar": "^2.6.1",
     "react-native-vector-icons": "^10.0.0",
     "react-native-video": "git+https://git@github.com/paddy57/react-native-video-android-cache.git",
-    "react-native-video-cache-control": "^1.2.1",
     "react-native-webview": "^13.3.0",
     "twrnc": "^3.6.3"
   },
