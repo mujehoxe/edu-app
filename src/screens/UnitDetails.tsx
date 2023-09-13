@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, FlatList, Text} from 'react-native';
 import tw from '../../tailwind';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../types';
+import {RootStackParamList, Block} from '../types';
 import {RouteProp} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
-import {Block} from '../Schemas';
-import {realmContext} from '../RealmContext';
 import BlockCard from '../components/BlockCard';
+import firestore from '@react-native-firebase/firestore';
+import {LoadingIndicator} from '../components/LoadingIndicator';
 
 type UnitDetailsRouteProp = RouteProp<RootStackParamList, 'UnitDetails'>;
 
@@ -16,24 +16,35 @@ interface UnitDetailsProps
   route: UnitDetailsRouteProp;
 }
 
-const {useRealm, useQuery} = realmContext;
-
 const UnitDetails: React.FC<UnitDetailsProps> = ({route}) => {
   const {t} = useTranslation();
 
   const {unit} = route.params;
 
-  const realm = useRealm();
-
-  const blocks = useQuery(Block)
-    .filtered('unit_id == $0', unit._id)
-    .sorted('order');
+  const [isLoading, setIsLoading] = useState(true);
+  const [blocks, setBlocks] = useState<Block[]>([]);
 
   useEffect(() => {
-    realm.subscriptions.update(mutableSubs => {
-      mutableSubs.add(blocks, {name: 'blocksSubscription'});
-    });
-  }, [realm, blocks]);
+    const subscriber = firestore()
+      .collection('Blocks')
+      .where('unitId', '==', unit.id)
+      .orderBy('order')
+      .onSnapshot(querySnapshot => {
+        const loadedBlocks: Block[] = querySnapshot.docs.map(
+          documentSnapshot => {
+            return {
+              ...(documentSnapshot.data() as Block),
+              id: documentSnapshot.id,
+            };
+          },
+        );
+
+        setBlocks(loadedBlocks);
+        setIsLoading(false);
+      });
+
+    return () => subscriber();
+  }, [unit]);
 
   const renderBlock = ({item}: {item: Block}) => (
     <View style={tw`px-4 py-3`}>
@@ -41,12 +52,16 @@ const UnitDetails: React.FC<UnitDetailsProps> = ({route}) => {
     </View>
   );
 
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
   return (
     <View style={tw`flex-1 bg-white dark:bg-black`}>
       <FlatList
         data={blocks}
         renderItem={renderBlock}
-        keyExtractor={item => item._id.toString()}
+        keyExtractor={item => item.id.toString()}
         contentContainerStyle={tw`pb-8`}
         ListEmptyComponent={
           <View style={tw`my-6 flex-1 justify-center items-center`}>

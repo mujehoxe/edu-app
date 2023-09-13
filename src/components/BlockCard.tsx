@@ -1,36 +1,41 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Text, View} from 'react-native';
 import tw from '../../tailwind';
 import TopicCard from './TopicCard';
 import {useTranslation} from 'react-i18next';
-import {Block, Topic} from '../Schemas';
-import {realmContext} from '../RealmContext';
+import {Block, Topic} from '../types';
+import firestore from '@react-native-firebase/firestore';
 
 export interface BlockCardProps {
   block: Block;
 }
 
-const {useRealm, useQuery} = realmContext;
-
 const BlockCard: React.FC<BlockCardProps> = ({block}) => {
   const {t} = useTranslation();
 
-  const realm = useRealm();
-
-  const topics = useQuery(Topic)
-    .filtered('block_id == $0', block._id)
-    .sorted('order');
+  const [topics, setTopics] = useState<Topic[]>([]);
 
   useEffect(() => {
-    realm.subscriptions.update(mutableSubs => {
-      mutableSubs.add(
-        realm.objects(Topic).filtered('block_id == $0', block._id),
-        {
-          name: 'topicsSubscription' + block._id.toString(),
-        },
-      );
-    });
-  }, [realm, block]);
+    const subscriber = firestore()
+      .collection('Blocks')
+      .doc(block.id)
+      .collection('Topics')
+      .orderBy('order')
+      .onSnapshot(querySnapshot => {
+        const loadedTopics: Topic[] = querySnapshot.docs.map(
+          documentSnapshot => {
+            return {
+              ...(documentSnapshot.data() as Topic),
+              id: documentSnapshot.id,
+            };
+          },
+        );
+
+        setTopics(loadedTopics);
+      });
+
+    return () => subscriber();
+  }, [block.id]);
 
   const renderTopic = ({item}: {item: Topic}) => (
     <View style={tw`px-4 py-3`}>
@@ -50,7 +55,7 @@ const BlockCard: React.FC<BlockCardProps> = ({block}) => {
       <FlatList
         data={topics}
         renderItem={renderTopic}
-        keyExtractor={item => item._id.toString()}
+        keyExtractor={item => item.id.toString()}
         contentContainerStyle={tw`my-auto pb-8`}
         ListEmptyComponent={
           <View style={tw`my-6 flex-1 justify-center items-center`}>
