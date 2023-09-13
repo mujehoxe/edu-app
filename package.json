@@ -19,7 +19,6 @@
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "@react-navigation/stack": "^6.3.17",
-    "@realm/react": "^0.5.2",
     "@ronradtke/react-native-markdown-display": "^8.0.0",
     "@ryanxcharles/markdown-it-katex": "^4.0.2",
     "date-fns": "^2.30.0",
@@ -50,7 +49,6 @@
     "react-native-video": "git+https://git@github.com/paddy57/react-native-video-android-cache.git",
     "react-native-video-cache-control": "^1.2.1",
     "react-native-webview": "^13.3.0",
-    "realm": "^11.10.2",
     "twrnc": "^3.6.3"
   },
   "devDependencies": {
