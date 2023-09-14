@@ -36,6 +36,7 @@ const VideoSectionCard: React.FC<VideoSectionCardProps> = ({
       onProgress,
     });
   };
+
   return (
     <TouchableOpacity
       activeOpacity={1}
