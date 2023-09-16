@@ -11,6 +11,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import RNPrint from 'react-native-print';
 import {PrinterIcon} from 'react-native-heroicons/solid';
 import useImmersiveLandscape from '../hooks/useImmersiveLandscape';
+import KeepAwake from 'react-native-keep-awake';
 
 export type PdfViewScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -62,7 +63,7 @@ const PdfView: React.FC<PdfViewProps> = ({route, navigation}) => {
   }, []);
 
   return (
-    <SafeAreaView style={tw`bg-slate-200 flex-1 w-full h-full bg-transparent`}>
+      <KeepAwake />
       <Pdf
         source={{uri: src}}
         trustAllCerts={false}
