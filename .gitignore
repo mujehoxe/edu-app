@@ -75,5 +75,5 @@ yarn-error.log
 android/app/google-services.json
 android/app/src/main/assets/index.android.bundle
 index.android.bundle
-.vscode/launch.json
+.vscode
 android/app/src/main/res/drawable*/*
