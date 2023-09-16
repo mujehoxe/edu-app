@@ -67,7 +67,7 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
 
   const [currentPlayingVideoIndex, setCurrentVideoIndex] = useState(-1);
 
-  const handleVideoTap = (index: number) => {
+  const handleVideoPlayPause = (index: number) => {
     setCurrentVideoIndex(prevIndex => {
       if (prevIndex === index) {
         return -1; // Stop the current video if tapped again
@@ -99,7 +99,7 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
                 }
                 onPress={
                   item.contentType === 'video'
-                    ? () => handleVideoTap(index)
+                    ? () => handleVideoPlayPause(index)
                     : undefined
                 }
               />
