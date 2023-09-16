@@ -6,7 +6,6 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../types';
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-
 import {SafeAreaView} from 'react-native-safe-area-context';
 import RNPrint from 'react-native-print';
 import {PrinterIcon} from 'react-native-heroicons/solid';
@@ -63,13 +62,14 @@ const PdfView: React.FC<PdfViewProps> = ({route, navigation}) => {
   }, []);
 
   return (
+    <SafeAreaView style={tw`flex-1 w-full h-full`}>
       <KeepAwake />
       <Pdf
         source={{uri: src}}
         trustAllCerts={false}
         fitPolicy={0}
         onPageSingleTap={() => setIsHeaderShown(!isHeaderShown)}
-        style={[tw`flex-1`, {width: pdfWidth, height: '100%'}]}
+        style={[tw`flex-1 w-[${pdfWidth}px]`]}
       />
     </SafeAreaView>
   );
