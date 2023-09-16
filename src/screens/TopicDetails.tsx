@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  SafeAreaView,
-  FlatList,
-  ListRenderItem,
-  StatusBar,
-  Text,
-} from 'react-native';
+import {View, SafeAreaView, StatusBar, ScrollView} from 'react-native';
 import tw from '../../tailwind';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -17,6 +10,7 @@ import {useTranslation} from 'react-i18next';
 import {VideoSection} from '../components/VideoSectionCard';
 import firestore from '@react-native-firebase/firestore';
 import {LoadingIndicator} from '../components/LoadingIndicator';
+import EmptyList from '../components/EmpltyList';
 
 export type TopicDetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -83,18 +77,6 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
     });
   };
 
-  const renderSection: ListRenderItem<Section> = ({item, index}) => (
-    <SectionCard
-      section={item}
-      isPlaying={
-        item.contentType === 'video' && index === currentPlayingVideoIndex
-      }
-      onPress={
-        item.contentType === 'video' ? () => handleVideoTap(index) : undefined
-      }
-    />
-  );
-
   if (isLoading) {
     return <LoadingIndicator />;
   }
@@ -103,21 +85,27 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
     <View style={tw`flex-1 bg-white dark:bg-black`}>
       <StatusBar backgroundColor="#2196F3" barStyle={'light-content'} />
       <SafeAreaView style={tw`flex-1`}>
-        <FlatList
-          data={sections}
-          renderItem={renderSection}
-          keyExtractor={item => item.id.toString()}
-          maxToRenderPerBatch={3}
-          initialNumToRender={3}
-          contentContainerStyle={tw`pt-4`}
-          ListEmptyComponent={
-            <View style={tw`my-6 flex-1 justify-center items-center`}>
-              <Text style={tw`text-slate-700 dark:text-slate-100 text-lg`}>
-                {t('noSections')}
-              </Text>
-            </View>
-          }
-        />
+        <ScrollView style={tw`flex-1 pt-4`} scrollEventThrottle={16}>
+          {sections.length === 0 ? (
+            <EmptyList message={t('noSections')} />
+          ) : (
+            sections?.map((item, index) => (
+              <SectionCard
+                key={item.id}
+                section={item}
+                isPlaying={
+                  item.contentType === 'video' &&
+                  index === currentPlayingVideoIndex
+                }
+                onPress={
+                  item.contentType === 'video'
+                    ? () => handleVideoTap(index)
+                    : undefined
+                }
+              />
+            ))
+          )}
+        </ScrollView>
       </SafeAreaView>
     </View>
   );
