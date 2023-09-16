@@ -1,12 +1,12 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import tw from '../../tailwind';
-import Video from 'react-native-video';
 import {View} from 'react-native';
 import {RootStackParamList} from '../types';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import useImmersiveLandscape from '../hooks/useImmersiveLandscape';
+import VideoPlayer from '../components/VideoPlayer';
 
 export type FullscreenVideoModalNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -24,24 +24,11 @@ interface FullscreenVideoModalProps
 }
 
 const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({route}) => {
-  const {src, paused, currentPlaybackTime, onProgress} = route.params;
-  const modalVideoRef = useRef<Video>(null);
-
   useImmersiveLandscape();
 
   return (
     <View style={tw`bg-black w-full h-full`}>
-      <Video
-        ref={modalVideoRef}
-        source={{uri: src}}
-        style={tw`bg-black h-full absolute inset-0`}
-        paused={paused}
-        onLoad={() => modalVideoRef.current?.seek(currentPlaybackTime)}
-        onProgress={data => onProgress(data)}
-        onEnd={() => modalVideoRef.current?.seek(0)}
-        resizeMode="cover"
-        controls
-      />
+      <VideoPlayer {...route.params} isFullscreen={true} />
     </View>
   );
 };

@@ -17,7 +17,7 @@ import SvgSectionCard from './SvgSectionCard';
 const SectionCard: React.FC<SectionCardProps> = ({
   section,
   isPlaying,
-  onPress,
+  onPlayPause,
 }) => {
   const {t, i18n} = useTranslation();
   const formatter = new Intl.DateTimeFormat(i18n.languages[0], {
@@ -48,7 +48,7 @@ const SectionCard: React.FC<SectionCardProps> = ({
       <ContentComponent
         section={section}
         isPlaying={isPlaying}
-        onPress={onPress}
+        onPlayPause={onPlayPause}
       />
       {assignmentSection.deadline && (
         <View

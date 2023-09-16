@@ -1,16 +1,11 @@
-import {OnProgressData} from 'react-native-video';
+import {VideoPlayerProps} from './components/VideoPlayer';
 
 export type RootStackParamList = {
   Units: {};
   UnitDetails: {unit: Unit};
   TopicDetails: {topic: Topic};
   PdfView: {src: string};
-  FullscreenVideoModal: {
-    src: string;
-    paused?: boolean;
-    currentPlaybackTime: number;
-    onProgress: (data: OnProgressData) => void;
-  };
+  FullscreenVideoModal: VideoPlayerProps;
 };
 
 export interface Unit {
@@ -57,5 +52,5 @@ export interface AssignmentSection extends Section {
 export interface SectionCardProps {
   section: Section;
   isPlaying?: boolean;
-  onPress?: () => void;
+  onPlayPause?: () => void;
 }

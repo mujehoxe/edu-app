@@ -97,7 +97,7 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
                   item.contentType === 'video' &&
                   index === currentPlayingVideoIndex
                 }
-                onPress={
+                onPlayPause={
                   item.contentType === 'video'
                     ? () => handleVideoPlayPause(index)
                     : undefined
