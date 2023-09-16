@@ -76,3 +76,4 @@ android/app/google-services.json
 android/app/src/main/assets/index.android.bundle
 index.android.bundle
 .vscode/launch.json
+android/app/src/main/res/drawable*/*
