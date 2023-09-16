@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Dimensions} from 'react-native';
 import Pdf from 'react-native-pdf';
 import tw from '../../tailwind';
@@ -9,8 +9,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
 import RNPrint from 'react-native-print';
-import {useNavigation} from '@react-navigation/native';
-import {PrinterIcon} from 'react-native-heroicons/outline';
+import {PrinterIcon} from 'react-native-heroicons/solid';
 import useImmersiveLandscape from '../hooks/useImmersiveLandscape';
 
 export type PdfViewScreenNavigationProp = StackNavigationProp<
@@ -30,17 +29,27 @@ const PdfView: React.FC<PdfViewProps> = ({route, navigation}) => {
   const [pdfWidth, setPdfWidth] = useState(Dimensions.get('window').width);
   const [isHeaderShown, setIsHeaderShown] = useState<boolean>(true);
 
-  navigation.setOptions({
-    headerRight: () => (
-      <PrinterIcon style={tw`text-black`} onPress={printPDF} />
-    ),
-    headerTransparent: true,
-    headerShown: isHeaderShown,
-  });
+  const PrinerIcon = useMemo(() => {
+    const printPDF = async () => {
+      await RNPrint.print({filePath: src});
+    };
+    return (
+      <PrinterIcon
+        style={tw`text-slate-100`}
+        stroke={tw.color('black')}
+        onPress={printPDF}
+      />
+    );
+  }, [src]);
 
-  const printPDF = async () => {
-    await RNPrint.print({filePath: src});
-  };
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => PrinerIcon,
+      headerTransparent: true,
+      headerShown: isHeaderShown,
+      headerTintColor: tw.color('gray-400'),
+    });
+  }, [navigation, PrinerIcon, isHeaderShown]);
 
   useImmersiveLandscape();
 
