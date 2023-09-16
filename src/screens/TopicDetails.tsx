@@ -51,7 +51,7 @@ const TopicDetails: React.FC<TopicDetailsProps> = ({route, navigation}) => {
       });
 
     return () => subscriber();
-  }, [topic]);
+  }, [topic.id]);
 
   const [sections, setSections] = useState<
     (Section | VideoSection | AssignmentSection)[]
